@@ -225,6 +225,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
     </div>
   </div>
   <div class="topbar-right">
+    <button class="btn btn-outline-white btn-sm" onclick="window.open(location.pathname+'?public=1','_blank')"><i class="ti ti-world"></i> Shared dashboard</button>
     <button class="btn btn-outline-white btn-sm" onclick="showView('dashboard')" id="btn-dash" style="display:none"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
     <button class="btn btn-white btn-sm" onclick="resetForm()"><i class="ti ti-plus"></i> New intake</button>
   </div>
@@ -242,6 +243,26 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
     <div class="sidebar-list" id="sidebar-list"></div>
   </div>
   <div class="detail-panel" id="detail-panel">
+    <div class="detail-empty">
+      <i class="ti ti-users"></i>
+      <h2>Select a client</h2>
+      <p>Choose a client from the left to view their intake details.</p>
+    </div>
+  </div>
+</div>
+
+<!-- PUBLIC DASHBOARD — shared, read-only, viewable by anyone with the link -->
+<div class="dashboard" id="view-public" style="display:none">
+  <div class="sidebar">
+    <div class="sidebar-head">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" id="public-search" placeholder="Search clients…" oninput="filterPublicClients(this.value)">
+      </div>
+    </div>
+    <div class="sidebar-list" id="public-sidebar-list"><div class="detail-empty" style="padding:2rem 1rem"><p>Loading…</p></div></div>
+  </div>
+  <div class="detail-panel" id="public-detail-panel">
     <div class="detail-empty">
       <i class="ti ti-users"></i>
       <h2>Select a client</h2>
@@ -618,8 +639,9 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
 <div class="toast" id="toast"><i class="ti ti-info-circle" id="toast-icon"></i><span id="toast-msg"></span></div>
 
 <script>
-/* ── JSONBIN CONFIG — paste your Master Key from jsonbin.io ── */
-const JSONBIN_KEY = 'YOUR_JSONBIN_MASTER_KEY';
+/* ── JSONBIN CONFIG ── */
+const JSONBIN_KEY = '$2a$10$paD.RlYlfNJViudXVvLN.eht8LfEJo9uFZS0yT0kBj/MZKuOviHTu';
+const MASTER_INDEX_BIN_ID = '6a47a2f6f5f4af5e2959d833'; // public bin listing every submitted client, for the shared dashboard
 /* ─────────────────────────────────────────────────────────── */
 
 const DB_KEY = 'rtm_intakes';
@@ -684,6 +706,36 @@ async function fetchBin(binId){
   }catch(e){ return null; }
 }
 
+/* ── MASTER INDEX (public, shared dashboard) ── */
+async function fetchMasterIndex(){
+  try{
+    const r = await fetch(`${JSONBIN_BASE}/${MASTER_INDEX_BIN_ID}/latest`);
+    const j = await r.json();
+    return (j.record && Array.isArray(j.record.clients)) ? j.record.clients : [];
+  }catch(e){ return []; }
+}
+
+async function updateMasterIndex(record){
+  if(!JSONBIN_KEY || JSONBIN_KEY==='YOUR_JSONBIN_MASTER_KEY' || !MASTER_INDEX_BIN_ID) return;
+  try{
+    const clients = await fetchMasterIndex();
+    const entry = {
+      id: record.id,
+      business_name: record.business_name || 'Unnamed client',
+      industry: record.industry || '',
+      submitted_at: record.submitted_at,
+      status: record.status || 'new'
+    };
+    const idx = clients.findIndex(x=>x.id===record.id);
+    if(idx>=0) clients[idx]=entry; else clients.push(entry);
+    await fetch(`${JSONBIN_BASE}/${MASTER_INDEX_BIN_ID}`, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+      body: JSON.stringify({clients})
+    });
+  }catch(e){}
+}
+
 function collectFormData(){
   const form = document.getElementById('intake-form');
   const data = {_bin_updated: new Date().toISOString(), _selected_services: selectedServices.join(',')};
@@ -718,9 +770,11 @@ function scheduleAutoSave(){
 /* ── VIEWS ── */
 function showView(v){
   document.getElementById('view-dashboard').style.display = v==='dashboard'?'flex':'none';
+  document.getElementById('view-public').style.display    = v==='public'?'flex':'none';
   document.getElementById('view-form').style.display      = v==='form'?'block':'none';
   document.getElementById('btn-dash').style.display       = v==='form'?'flex':'none';
   if(v==='dashboard') renderSidebar(getIntakes());
+  if(v==='public') loadPublicDashboard();
 }
 
 /* ── SIDEBAR ── */
@@ -750,6 +804,59 @@ function filterClients(q){
   const all = getIntakes();
   const filtered = q ? all.filter(c=>(c.business_name||'').toLowerCase().includes(q.toLowerCase())||(c.industry||'').toLowerCase().includes(q.toLowerCase())) : all;
   renderSidebar(filtered);
+}
+
+/* ── PUBLIC DASHBOARD (shared, read-only) ── */
+let publicClients = [];
+let selectedPublicClientId = null;
+
+async function loadPublicDashboard(){
+  publicClients = await fetchMasterIndex();
+  renderPublicSidebar(publicClients);
+}
+
+function renderPublicSidebar(intakes){
+  const list = document.getElementById('public-sidebar-list');
+  if(!intakes.length){
+    list.innerHTML='<div class="sidebar-empty"><i class="ti ti-users"></i><p>No intakes submitted yet.</p></div>';
+    return;
+  }
+  list.innerHTML = intakes.slice().reverse().map(c=>`
+    <div class="client-row${c.id===selectedPublicClientId?' active':''}" onclick="selectPublicClient('${c.id}')">
+      <div class="client-avatar">${initials(c.business_name)}</div>
+      <div class="client-meta">
+        <h3>${esc(c.business_name||'Unnamed')}</h3>
+        <p>${esc(c.industry||'')} &bull; ${fmtDate(c.submitted_at)}</p>
+      </div>
+      <span class="status-pill ${statusClass(c.status)}">${statusLabel(c.status)}</span>
+    </div>`).join('');
+}
+
+function filterPublicClients(q){
+  const filtered = q ? publicClients.filter(c=>(c.business_name||'').toLowerCase().includes(q.toLowerCase())||(c.industry||'').toLowerCase().includes(q.toLowerCase())) : publicClients;
+  renderPublicSidebar(filtered);
+}
+
+let selectedPublicClientData = null;
+
+async function selectPublicClient(id){
+  selectedPublicClientId = id;
+  selectedPublicClientData = null;
+  renderPublicSidebar(publicClients);
+  const panel = document.getElementById('public-detail-panel');
+  panel.innerHTML = '<div class="detail-empty"><p>Loading…</p></div>';
+  const c = await fetchBin(id);
+  if(!c){ panel.innerHTML = '<div class="detail-empty"><i class="ti ti-alert-circle"></i><h2>Could not load</h2><p>This intake may have been removed.</p></div>'; return; }
+  selectedPublicClientData = c;
+  const html = buildDetailHTML(c).replace(
+    /<div class="detail-actions">[\s\S]*?<\/div>\s*<\/div>/,
+    `</div><div class="detail-actions"><button class="btn btn-ghost btn-sm" onclick="downloadPublicClientPDF()"><i class="ti ti-file-download"></i> Download PDF</button></div>`
+  );
+  panel.innerHTML = html;
+}
+
+function downloadPublicClientPDF(){
+  downloadPDF(selectedPublicClientData);
 }
 
 /* ── DETAIL VIEW ── */
@@ -1032,6 +1139,11 @@ async function submitIntake(){
     if(newId) currentBinId = newId;
   }
 
+  // Add to the public master index (uses the real JSONBin bin id, not the local id, so other devices can fetch it)
+  if(currentBinId){
+    await updateMasterIndex({...record, id: currentBinId});
+  }
+
   // Save to local dashboard index
   const existing = getIntakes();
   const idx = existing.findIndex(x=>x.id===record.id);
@@ -1284,8 +1396,14 @@ document.addEventListener('DOMContentLoaded', async ()=>{
   document.getElementById('intake-form').addEventListener('input', scheduleAutoSave);
   document.getElementById('intake-form').addEventListener('change', scheduleAutoSave);
 
-  // Check URL for ?intake=<binId>
+  // Check URL for ?public=1 — shared, read-only dashboard anyone can load
   const params = new URLSearchParams(location.search);
+  if(params.get('public')==='1'){
+    showView('public');
+    return;
+  }
+
+  // Check URL for ?intake=<binId>
   if(params.get('intake')){
     showView('form');
     const mode = await loadIntakeFromURL();
