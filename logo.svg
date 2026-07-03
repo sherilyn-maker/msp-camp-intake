@@ -1,0 +1,12 @@
+<svg viewBox="0 0 560 260" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>MSP Camp</title>
+<g fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M300 110 L378 34 L456 110"/>
+  <path d="M378 34 L378 110"/>
+  <path d="M300 110 L272 122"/>
+  <path d="M456 110 L484 122"/>
+  <path d="M318 110 L378 56 L438 110"/>
+</g>
+<text x="40" y="175" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="72" fill="#ffffff">MSP<tspan font-weight="400">camp</tspan></text>
+<text x="44" y="212" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="26" fill="#ffffff" letter-spacing="1">marketing campaigns</text>
+</svg>
