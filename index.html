@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Intake — MSP Camp</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f1f1f3;color:#111;min-height:100vh}
+
+/* ── LAYOUT ── */
+.app{display:flex;flex-direction:column;min-height:100vh}
+.topbar{background:linear-gradient(135deg,#0f3460 0%,#1B75BB 100%);display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.5rem;position:sticky;top:0;z-index:100;border-bottom:3px solid #F5A823}
+.topbar-left{display:flex;align-items:center;gap:14px}
+.rtm-logo-img{height:38px;width:auto;display:block}
+.topbar-title{display:flex;flex-direction:column}
+.topbar h1{font-size:15px;font-weight:700;color:#fff;letter-spacing:.2px}
+.topbar h1 span{color:#F5A823}
+.topbar p{font-size:11px;color:rgba(255,255,255,.7);margin-top:1px}
+.topbar-right{display:flex;gap:8px}
+.btn{padding:8px 18px;font-size:13px;font-weight:600;border-radius:8px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px;border:1px solid transparent;transition:all .15s}
+.btn-white{background:#fff;color:#1B75BB;border-color:#fff}
+.btn-white:hover{background:#d6eaf8}
+.btn-outline-white{background:transparent;color:#fff;border-color:rgba(255,255,255,.5)}
+.btn-outline-white:hover{background:rgba(255,255,255,.1)}
+.btn-primary{background:#1B75BB;color:#fff;border-color:#1B75BB}
+.btn-primary:hover{background:#155fa0}
+.btn-primary:disabled{background:#ccc;border-color:#ccc;cursor:not-allowed}
+.btn-ghost{background:transparent;color:#555;border-color:#d4d4d8}
+.btn-ghost:hover{border-color:#888;color:#111}
+.btn-danger{background:#fff;color:#dc2626;border-color:#90c4f0}
+.btn-danger:hover{background:#fef2f2}
+.btn-sm{padding:5px 12px;font-size:12px}
+
+/* ── DASHBOARD ── */
+.dashboard{display:flex;flex:1;height:calc(100vh - 57px)}
+.sidebar{width:300px;flex-shrink:0;background:#fff;border-right:1px solid #e4e4e7;display:flex;flex-direction:column;overflow:hidden}
+.sidebar-head{padding:1rem;border-bottom:1px solid #e4e4e7}
+.search-box{position:relative}
+.search-box input{width:100%;padding:8px 10px 8px 34px;border:1px solid #d4d4d8;border-radius:8px;font-size:13px;font-family:inherit;color:#111}
+.search-box input:focus{outline:none;border-color:#1B75BB;box-shadow:0 0 0 3px rgba(27,117,187,.1)}
+.search-box i{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:15px;color:#888}
+.sidebar-list{overflow-y:auto;flex:1}
+.sidebar-empty{padding:2rem 1rem;text-align:center;color:#888;font-size:13px}
+.sidebar-empty i{font-size:32px;color:#d4d4d8;margin-bottom:.5rem;display:block}
+.client-row{padding:.875rem 1rem;border-bottom:1px solid #f4f4f5;cursor:pointer;transition:background .12s;display:flex;align-items:flex-start;gap:10px}
+.client-row:hover{background:#f0f7ff}
+.client-row.active{background:#e8f4ff;border-left:3px solid #F5A823}
+.client-avatar{width:36px;height:36px;border-radius:8px;background:#f0f7ff;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#1B75BB;flex-shrink:0;text-transform:uppercase}
+.client-meta{flex:1;min-width:0}
+.client-meta h3{font-size:13.5px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.client-meta p{font-size:11.5px;color:#888;margin-top:1px}
+.status-pill{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+.status-new{background:#fef3c7;color:#92400e}
+.status-active{background:#dcfce7;color:#166534}
+.status-progress{background:#dbeafe;color:#1e40af}
+
+/* ── DETAIL PANEL ── */
+.detail-panel{flex:1;overflow-y:auto;padding:1.5rem 2rem;background:#f1f1f3}
+.detail-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#888;text-align:center}
+.detail-empty i{font-size:48px;color:#d4d4d8;margin-bottom:1rem}
+.detail-empty h2{font-size:18px;font-weight:500;color:#bbb;margin-bottom:.5rem}
+.detail-empty p{font-size:13px}
+.detail-header{background:#fff;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.detail-header-left{display:flex;align-items:center;gap:14px}
+.detail-avatar{width:50px;height:50px;border-radius:10px;background:linear-gradient(135deg,#0f3460,#1B75BB);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#F5A823;border:none}
+.detail-header-text h2{font-size:18px;font-weight:700;color:#111;margin-bottom:3px}
+.detail-header-text p{font-size:13px;color:#666}
+.detail-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.status-select{padding:5px 10px;border:1px solid #d4d4d8;border-radius:8px;font-size:12px;font-family:inherit;color:#555;cursor:pointer;background:#fff}
+.status-select:focus{outline:none;border-color:#1B75BB}
+
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+@media(max-width:700px){.info-grid{grid-template-columns:1fr}}
+.info-card{background:#fff;border-radius:10px;padding:1.125rem 1.25rem}
+.info-card.full{grid-column:1/-1}
+.info-card h4{font-size:12px;font-weight:700;color:#1B75BB;text-transform:uppercase;letter-spacing:.5px;margin-bottom:.875rem;display:flex;align-items:center;gap:7px;padding-bottom:.5rem;border-bottom:2px solid #F5A823}
+.info-card h4 i{font-size:15px}
+.kv-table{width:100%;font-size:13px;border-collapse:collapse}
+.kv-table tr td{padding:5px 0;vertical-align:top}
+.kv-table tr td:first-child{color:#888;font-weight:500;width:45%;padding-right:12px;white-space:nowrap}
+.kv-table tr td:last-child{color:#111;font-weight:400}
+.kv-table tr+tr td{border-top:1px solid #f4f4f5}
+.service-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:#e8f4ff;color:#1B75BB;border:1px solid #90c4f0;border-radius:20px;font-size:12px;font-weight:600;margin:2px}
+.service-tag i{font-size:13px}
+.check-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;background:#f0fdf4;color:#166534;border-radius:20px;font-size:12px;font-weight:500;margin:2px}
+.check-badge i{font-size:13px}
+.cred-box{background:#fafafa;border:1px solid #e4e4e7;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#111;margin-top:4px;font-family:monospace;word-break:break-all}
+.section-divider{height:1px;background:#f0f0f0;margin:1rem 0}
+.no-val{color:#bbb;font-style:italic}
+
+/* ── FORM ── */
+.form-wrap{max-width:820px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.form-card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.form-header{background:linear-gradient(135deg,#0f3460 0%,#1B75BB 100%);padding:1.25rem 1.75rem;display:flex;align-items:center;gap:1rem;border-bottom:3px solid #F5A823}
+.form-header h2{font-size:18px;font-weight:700;color:#fff;margin-bottom:2px}
+.form-header h2 span{color:#F5A823}
+.form-header p{font-size:12px;color:rgba(255,255,255,.8)}
+.form-body{padding:1.75rem}
+.section-title{font-size:14px;font-weight:700;color:#111;margin:0 0 1.125rem;padding-bottom:.5rem;border-bottom:2px solid #f0f0f0;display:flex;align-items:center;gap:8px;text-transform:uppercase;letter-spacing:.4px}
+.section-title i{color:#1B75BB;font-size:16px}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:1.125rem}
+.field-grid.one{grid-template-columns:1fr}
+@media(max-width:580px){.field-grid{grid-template-columns:1fr}}
+.field-group{display:flex;flex-direction:column;gap:5px}
+.field-group label{font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px}
+.field-group input,.field-group select,.field-group textarea{width:100%;font-size:14px;padding:9px 12px;border:1px solid #d4d4d8;border-radius:8px;background:#fff;color:#111;font-family:inherit;transition:border-color .15s,box-shadow .15s;appearance:none;-webkit-appearance:none}
+.field-group select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:36px}
+.field-group textarea{resize:vertical;min-height:90px;line-height:1.55}
+.field-group input:focus,.field-group select:focus,.field-group textarea:focus{outline:none;border-color:#1B75BB;box-shadow:0 0 0 3px rgba(27,117,187,.12)}
+.field-group input.error,.field-group select.error{border-color:#dc2626;box-shadow:0 0 0 3px rgba(220,38,38,.1)}
+.req{color:#F5A823}
+.helper{font-size:11.5px;color:#888;margin-top:3px;line-height:1.4}
+.divider{height:1px;background:#f0f0f0;margin:1.25rem 0}
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:1.125rem}
+@media(max-width:500px){.check-grid{grid-template-columns:1fr}}
+.check-item{display:flex;align-items:center;gap:9px;font-size:13px;color:#222;cursor:pointer;padding:8px 11px;border:1px solid #e4e4e7;border-radius:8px;transition:border-color .15s,background .15s}
+.check-item:hover{border-color:#1B75BB;background:#f0f7ff}
+.check-item input[type=checkbox]{width:15px;height:15px;accent-color:#1B75BB;cursor:pointer;flex-shrink:0}
+.radio-group{display:flex;flex-wrap:wrap;gap:7px;margin-top:5px}
+.radio-pill{display:flex;align-items:center;gap:7px;padding:6px 13px;border:1px solid #d4d4d8;border-radius:20px;font-size:13px;cursor:pointer;color:#444;transition:all .15s}
+.radio-pill:hover{border-color:#1B75BB;color:#1B75BB}
+.radio-pill:has(input:checked){border-color:#1B75BB;background:#e8f4ff;color:#1B75BB;font-weight:500}
+.radio-pill input{accent-color:#1B75BB;cursor:pointer}
+.service-tabs{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:1.25rem}
+.stab{padding:6px 14px;font-size:13px;font-weight:600;border:1px solid #d4d4d8;border-radius:20px;cursor:pointer;background:#fff;color:#555;transition:all .15s;display:flex;align-items:center;gap:6px;font-family:inherit}
+.stab i{font-size:14px}
+.stab:hover{border-color:#1B75BB;color:#1B75BB}
+.stab.active{background:#1B75BB;border-color:#1B75BB;color:#fff}
+.service-panel{display:none}
+.service-panel.active{display:block}
+.panel-intro{background:#f0f7ff;border:1px solid #bdd9f5;border-radius:8px;padding:.75rem 1rem;margin-bottom:1.125rem;font-size:13px;color:#555;display:flex;align-items:flex-start;gap:8px}
+.panel-intro i{color:#1B75BB;font-size:16px;flex-shrink:0;margin-top:2px}
+.service-selector-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:1.25rem}
+@media(max-width:500px){.service-selector-grid{grid-template-columns:1fr}}
+.service-card{border:1.5px solid #e4e4e7;border-radius:10px;padding:.875rem 1rem;cursor:pointer;transition:all .15s;display:flex;gap:11px;align-items:flex-start}
+.service-card:hover{border-color:#1B75BB;background:#f0f7ff}
+.service-card.selected{border-color:#1B75BB;background:#e8f4ff}
+.svc-icon{width:36px;height:36px;border-radius:8px;background:#f0f7ff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.svc-icon i{font-size:18px;color:#1B75BB}
+.service-card.selected .svc-icon{background:#1B75BB}
+.service-card.selected .svc-icon i{color:#fff}
+.svc-text h3{font-size:13.5px;font-weight:600;color:#111;margin-bottom:2px}
+.svc-text p{font-size:11.5px;color:#777;line-height:1.4}
+.svc-check{margin-left:auto;color:#1B75BB;font-size:18px;opacity:0;flex-shrink:0}
+.service-card.selected .svc-check{opacity:1}
+.progress-wrap{margin-bottom:1.5rem}
+.progress-steps{display:flex;justify-content:space-between;position:relative;margin-bottom:8px}
+.progress-steps::before{content:'';position:absolute;top:13px;left:13px;right:13px;height:2px;background:#e4e4e7;z-index:0}
+.progress-fill{position:absolute;top:13px;left:13px;height:2px;background:#1B75BB;z-index:1;transition:width .3s}
+.pstep{display:flex;flex-direction:column;align-items:center;gap:5px;z-index:2;cursor:pointer}
+.pstep-dot{width:26px;height:26px;border-radius:50%;border:2px solid #e4e4e7;background:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;transition:all .2s}
+.pstep.done .pstep-dot{background:#1B75BB;border-color:#1B75BB;color:#fff}
+.pstep.active .pstep-dot{border-color:#1B75BB;color:#1B75BB}
+.pstep-label{font-size:11px;color:#888;white-space:nowrap}
+.pstep.active .pstep-label,.pstep.done .pstep-label{color:#1B75BB;font-weight:600}
+.form-step{display:none}
+.form-step.active{display:block}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;padding-top:1.25rem;border-top:1px solid #f0f0f0}
+.step-counter{font-size:12px;color:#888}
+.setup-note{background:#fffbeb;border:1px solid #fcd34d;border-radius:8px;padding:.875rem 1.125rem;font-size:13px;color:#78350f;margin-bottom:1.25rem;display:flex;gap:10px}
+.setup-note i{font-size:18px;color:#d97706;flex-shrink:0;margin-top:1px}
+.setup-note a{color:#1B75BB;font-weight:600}
+.review-box{background:#fafafa;border:1px solid #e4e4e7;border-radius:10px;padding:1.125rem 1.375rem;font-size:13.5px;color:#333;margin-bottom:1.25rem;line-height:1.9}
+.sub-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:#1B75BB;margin:1rem 0 .5rem}
+.access-box{background:#f8f9fa;border:1px solid #e4e4e7;border-radius:8px;padding:.875rem 1rem;margin-bottom:.75rem}
+.access-box h5{font-size:12px;font-weight:700;color:#1B75BB;text-transform:uppercase;letter-spacing:.4px;margin-bottom:.625rem;display:flex;align-items:center;gap:6px}
+.access-box h5 i{font-size:14px}
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;color:#fff;padding:10px 16px;border-radius:10px;font-size:13px;font-weight:500;display:flex;align-items:center;gap:8px;opacity:0;transform:translateY(8px);transition:all .25s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.error{background:#b91c1c}
+.toast.success{background:#15803d}
+.success-screen{display:none;text-align:center;padding:3rem 2rem}
+.success-icon{width:68px;height:68px;background:#1B75BB;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1.25rem}
+.success-icon i{font-size:32px;color:#fff}
+.success-screen h2{font-size:20px;font-weight:700;margin-bottom:.5rem}
+.success-screen p{font-size:13.5px;color:#666;line-height:1.6;max-width:400px;margin:0 auto}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:none;align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal{background:#fff;border-radius:12px;padding:1.5rem;max-width:400px;width:90%;text-align:center}
+.modal h3{font-size:17px;font-weight:700;margin-bottom:.5rem}
+.modal p{font-size:13.5px;color:#666;margin-bottom:1.25rem}
+.modal-actions{display:flex;gap:8px;justify-content:center}
+
+/* ── AM BANNER ── */
+.am-banner{display:flex;align-items:flex-start;gap:12px;border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;font-size:13px}
+.am-banner.am-mode{background:#fff8e6;border:1.5px solid #F5A823;color:#78350f}
+.am-banner.am-mode .am-banner-icon{color:#F5A823}
+.am-banner.client-mode{background:#e8f4ff;border:1.5px solid #90c4f0;color:#1a3a5c}
+.am-banner.client-mode .am-banner-icon{color:#1B75BB}
+.am-banner-icon{font-size:20px;flex-shrink:0;margin-top:1px}
+.am-banner-body{flex:1}
+.am-banner-body strong{display:block;font-size:13.5px;margin-bottom:3px}
+.am-banner-body p{line-height:1.55;margin:0}
+.am-banner-actions{display:flex;gap:8px;margin-top:.75rem;flex-wrap:wrap;align-items:center}
+.am-small-btn{padding:6px 14px;font-size:12.5px;font-weight:600;border-radius:7px;cursor:pointer;font-family:inherit;border:1px solid;display:inline-flex;align-items:center;gap:6px;transition:all .15s}
+.am-small-btn.gold{background:#F5A823;color:#fff;border-color:#F5A823}
+.am-small-btn.gold:hover{background:#d97706}
+.am-small-btn.outline-gold{background:#fff;color:#92400e;border-color:#F5A823}
+.am-small-btn.outline-gold:hover{background:#fff8e6}
+.prefill-link-box{background:#fff;border:1.5px dashed #F5A823;border-radius:8px;padding:.75rem 1rem;font-size:12px;color:#555;word-break:break-all;margin-top:.75rem;display:none;cursor:pointer;line-height:1.6}
+.prefill-link-box:hover{background:#fff8e6}
+.prefill-link-url{color:#1B75BB;font-weight:500;display:block;margin-top:2px}
+.copy-hint{font-size:11px;color:#aaa;margin-top:3px}
+
+/* ── AM FIELD INDICATORS ── */
+.field-wrap{position:relative}
+.am-field-badge{position:absolute;top:-9px;right:6px;font-size:9.5px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.3px;z-index:1;display:none;pointer-events:none}
+.am-field-badge.by-am{background:#F5A823;color:#7c3f00;display:inline-block}
+input.am-filled,select.am-filled,textarea.am-filled{border-color:#F5A823 !important;background:#fffdf5 !important}
+input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow:0 0 0 3px rgba(245,168,35,.2) !important}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="app">
+<div class="topbar">
+  <div class="topbar-left">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAACPCAMAAAAMYmvLAAAGYmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDI2LTA1LTA3VDIyOjEyOjM0KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2ZGRlMTlmMy05MzJjLWQ5NDMtODQ1ZS05MzczOGViMzUxZjMiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowZTNjMmM0Ni0xY2Y4LTRkNGQtODAwNC1kMzg0NGRlMDJmYTEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxOGM4ZGQwOS0wNWIwLTYyNDEtYjU3MC03NDgxMDUxOWI4MzMiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjE4YzhkZDA5LTA1YjAtNjI0MS1iNTcwLTc0ODEwNTE5YjgzMyIgc3RFdnQ6d2hlbj0iMjAyNi0wNS0wN1QyMjoxMjozNCswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjb252ZXJ0ZWQiIHN0RXZ0OnBhcmFtZXRlcnM9ImZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjZkZGUxOWYzLTkzMmMtZDk0My04NDVlLTkzNzM4ZWIzNTFmMyIgc3RFdnQ6d2hlbj0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqnDfpsAAAAJcEhZcwAACxMAAAsTAQCanBgAAAEvUExURUdwTP///8KlR////xxwnhxwn////////x1zov///5O2yv23FP////23FP23FB1yoB1xoP23FBxwnv///x1xn9Lm8f///x1wnv///x51piOAtf////z+//////23FB1wnh1yof23FP7///23FP23FP////////23FDaWzS+OxSl+rI692CmTz4S83P23FLXW6Gyv1Euezv23FCKBtiWBtSWKxM7j773c7V2cv/23FP23FP23FP23FP23FP23FP96rRxwFP///xxwnh1wnv23FCMfIB1zoyiU0v27MB53qB95qyOFvSB8ryKCuCF/tSWMxyaQzSSIwSB+svDx8YhnJy0oJj00K6alpWxqatva2oiFhsPBwmRNJOyvLkNAQVZTU9SeLL+OK6d9KQDxB0dwTDWoBWoAAABldFJOUwDuEFrxwtc/K5kHvhAz6GV4S+0esP7I0mhGxniIt2jhj3eoHocsTLXLo9LL4YPU2MOOlvLg7uePyCuDorB8qeX///////////////////////////////////////////////8A22J4hAAAG8VJREFUeNrsnQlb00oXx2tptQ1iK1ZL2Np7cQFFURGvy733eULoQllaluKCiPj9P8SbZCaT2TOTifdNJQdBoZMpZH78/+ecTGOhYBZTjwp5XKewm6WEsf3s3fYs5+uzrVazWW7Xa3YlP72/U5S3E4e7sSF+DHxsNRv1HJjfJBrJSXHnHaelMnK2XC/mZ3ryDWjbQFaeOc471cHNupWf7esqK16cOM6GxvBybkbXNVvZ9ixI0YTCaNn5Gb+OrLi+BTnOU51Dcm25rlXQfUfThIJo5HnLdWPFdZ86zqdzTRPyj3Nr+Wm/bh7kWdDl15hKqLvddT3rcbvwDdDSyM/79WKldOKcdM5kJuTBwUaATCvPWq4VK74FdTqeCc3KQHG7iBgXvvsfSnlBdJ3yFd+COh2+CSEm+OFrSw7LNWLFq4I6Hd+EnjGksLEL37GIgcWqSENcTFWUoxA3R8yFibhZRLEyoxsr8EjiEz+K4Yii+rPiX3yv+h0UDVhxgQV1Ol+ckxItKW6ECHrzI/iXIiwVVx6z5XaNu04NVzHq4idvBgO2y/KzH4wq67Pyekc3XkMygk8eYlMthyMexj7rnXBokffFuLhroisvHeezz4pnQvP8dBYCAgN9ioApVUxYCaJcs34FK7VwiD0xrNyJE5a7O/8vVlz3pnMy9ln5jpkQJSjhB4wXDJjubtMyZcV1W7VfwEoLsTgxrOwsxzzp9K9mxd3uSqsgaEIunafsSqMbakvDnBXXpfvA5qzU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" alt="MSP Camp" class="rtm-logo-img">
+    <div class="topbar-title">
+      <h1>Client Intake <span>MSP Camp</span></h1>
+      <p>Take Command of Your Brand</p>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <button class="btn btn-outline-white btn-sm" onclick="showView('dashboard')" id="btn-dash" style="display:none"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
+    <button class="btn btn-white btn-sm" onclick="resetForm()"><i class="ti ti-plus"></i> New intake</button>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="view-dashboard" style="display:none">
+  <div class="sidebar">
+    <div class="sidebar-head">
+      <div class="search-box">
+        <i class="ti ti-search"></i>
+        <input type="text" id="sidebar-search" placeholder="Search clients…" oninput="filterClients(this.value)">
+      </div>
+    </div>
+    <div class="sidebar-list" id="sidebar-list"></div>
+  </div>
+  <div class="detail-panel" id="detail-panel">
+    <div class="detail-empty">
+      <i class="ti ti-users"></i>
+      <h2>Select a client</h2>
+      <p>Choose a client from the left to view their intake details.</p>
+    </div>
+  </div>
+</div>
+
+<!-- FORM VIEW -->
+<div id="view-form" style="display:none">
+<div class="form-wrap">
+  <div class="form-card">
+    <div class="form-header">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAisAAACPCAMAAAAMYmvLAAAGYmlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ0MgMjAxOSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDI2LTA1LTA3VDIyOjEyOjM0KzA4OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo2ZGRlMTlmMy05MzJjLWQ5NDMtODQ1ZS05MzczOGViMzUxZjMiIHhtcE1NOkRvY3VtZW50SUQ9ImFkb2JlOmRvY2lkOnBob3Rvc2hvcDowZTNjMmM0Ni0xY2Y4LTRkNGQtODAwNC1kMzg0NGRlMDJmYTEiIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDoxOGM4ZGQwOS0wNWIwLTYyNDEtYjU3MC03NDgxMDUxOWI4MzMiPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjcmVhdGVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjE4YzhkZDA5LTA1YjAtNjI0MS1iNTcwLTc0ODEwNTE5YjgzMyIgc3RFdnQ6d2hlbj0iMjAyNi0wNS0wN1QyMjoxMjozNCswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIi8+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJjb252ZXJ0ZWQiIHN0RXZ0OnBhcmFtZXRlcnM9ImZyb20gYXBwbGljYXRpb24vdm5kLmFkb2JlLnBob3Rvc2hvcCB0byBpbWFnZS9wbmciLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOjZkZGUxOWYzLTkzMmMtZDk0My04NDVlLTkzNzM4ZWIzNTFmMyIgc3RFdnQ6d2hlbj0iMjAyNi0wNS0wN1QyMjoxNDoyOSswODowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqnDfpsAAAAJcEhZcwAACxMAAAsTAQCanBgAAAEvUExURUdwTP///8KlR////xxwnhxwn////////x1zov///5O2yv23FP////23FP23FB1yoB1xoP23FBxwnv///x1xn9Lm8f///x1wnv///x51piOAtf////z+//////23FB1wnh1yof23FP7///23FP23FP////////23FDaWzS+OxSl+rI692CmTz4S83P23FLXW6Gyv1Euezv23FCKBtiWBtSWKxM7j773c7V2cv/23FP23FP23FP23FP23FP23FP96rRxwFP///xxwnh1wnv23FCMfIB1zoyiU0v27MB53qB95qyOFvSB8ryKCuCF/tSWMxyaQzSSIwSB+svDx8YhnJy0oJj00K6alpWxqatva2oiFhsPBwmRNJOyvLkNAQVZTU9SeLL+OK6d9KQDxB0dwTDWoBWoAAABldFJOUwDuEFrxwtc/K5kHvhAz6GV4S+0esP7I0mhGxniIt2jhj3eoHocsTLXLo9LL4YPU2MOOlvLg7uePyCuDorB8qeX///////////////////////////////////////////////8A22J4hAAAG8VJREFUeNrsnQlb00oXx2tptQ1iK1ZL2Np7cQFFURGvy733eULoQllaluKCiPj9P8SbZCaT2TOTifdNJQdBoZMpZH78/+ecTGOhYBZTjwp5XKewm6WEsf3s3fYs5+uzrVazWW7Xa3YlP72/U5S3E4e7sSF+DHxsNRv1HJjfJBrJSXHnHaelMnK2XC/mZ3ryDWjbQFaeOc471cHNupWf7esqK16cOM6GxvBybkbXNVvZ9ixI0YTCaNn5Gb+OrLi+BTnOU51Dcm25rlXQfUfThIJo5HnLdWPFdZ86zqdzTRPyj3Nr+Wm/bh7kWdDl15hKqLvddT3rcbvwDdDSyM/79WKldOKcdM5kJuTBwUaATCvPWq4VK74FdTqeCc3KQHG7iBgXvvsfSnlBdJ3yFd+COh2+CSEm+OFrSw7LNWLFq4I6Hd+EnjGksLEL37GIgcWqSENcTFWUoxA3R8yFibhZRLEyoxsr8EjiEz+K4Yii+rPiX3yv+h0UDVhxgQV1Ol+ckxItKW6ECHrzI/iXIiwVVx6z5XaNu04NVzHq4idvBgO2y/KzH4wq67Pyekc3XkMygk8eYlMthyMexj7rnXBokffFuLhroisvHeezz4pnQvP8dBYCAgN9ioApVUxYCaJcs34FK7VwiD0xrNyJE5a7O/8vVlz3pnMy9ln5jpkQJSjhB4wXDJjubtMyZcV1W7VfwEoLsTgxrOwsxzzp9K9mxd3uSqsgaEIunafsSqMbakvDnBXXpfvA5qzU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" alt="MSP Camp" style="height:44px;width:auto;filter:brightness(0) invert(1)">
+      <div>
+        <h2>Client Onboarding <span>Intake</span></h2>
+        <p>Fill out all sections — your team will receive a notification when submitted.</p>
+      </div>
+    </div>
+    <div class="form-body">
+
+      <!-- AM BANNER -->
+      <div class="am-banner am-mode" id="am-banner">
+        <i class="ti ti-pencil am-banner-icon" id="am-banner-icon"></i>
+        <div class="am-banner-body">
+          <strong id="am-banner-title">Account Manager — Pre-fill</strong>
+          <p id="am-banner-desc">Fill in everything you already know from the sales call or website research. Fields you complete are highlighted in gold. When ready, generate a link and send it to the client — they'll see your entries and only need to fill in what's missing.</p>
+          <div class="am-banner-actions" id="am-banner-actions">
+            <button class="am-small-btn gold" onclick="generateClientLink()"><i class="ti ti-link"></i> Generate client link</button>
+            <button class="am-small-btn outline-gold" id="copy-link-btn" onclick="copyClientLink()" style="display:none"><i class="ti ti-copy"></i> Copy link</button>
+          </div>
+          <div class="prefill-link-box" id="prefill-link-box" onclick="copyClientLink()">
+            <i class="ti ti-link"></i> <strong>Client link ready — click to copy:</strong>
+            <span class="prefill-link-url" id="prefill-link-text"></span>
+            <span class="copy-hint">Click anywhere on this box to copy to clipboard</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SETUP NOTE -->
+      <div class="setup-note" id="setup-note">
+        <i class="ti ti-alert-triangle"></i>
+        <div>
+          <strong>Email notifications:</strong> Paste your <a href="https://formspree.io" target="_blank">Formspree</a> form ID to email submissions to <strong>analytics@realtimemarketing.com</strong>.&nbsp;
+          <input type="text" id="formspree-input" placeholder="Form ID e.g. xrgvwkab" style="padding:3px 8px;border:1px solid #d4d4d8;border-radius:6px;font-size:12px;width:180px">
+          <button onclick="applyFormspree()" style="margin-left:6px;padding:3px 10px;background:#1B75BB;color:#fff;border:none;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit">Apply</button>
+        </div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="progress-wrap">
+        <div class="progress-steps" id="prog-steps">
+          <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+          <div class="pstep active" data-step="0"><div class="pstep-dot">1</div><span class="pstep-label">Client info</span></div>
+          <div class="pstep" data-step="1"><div class="pstep-dot">2</div><span class="pstep-label">Services</span></div>
+          <div class="pstep" data-step="2"><div class="pstep-dot">3</div><span class="pstep-label">Details</span></div>
+          <div class="pstep" data-step="3"><div class="pstep-dot">4</div><span class="pstep-label">Submit</span></div>
+        </div>
+      </div>
+
+      <form id="intake-form" novalidate>
+      <input type="hidden" name="selected_services" id="hidden-services">
+
+      <!-- STEP 1 -->
+      <div class="form-step active" id="step-0">
+        <p class="section-title"><i class="ti ti-user"></i>Client information</p>
+        <div class="field-grid">
+          <div class="field-group"><label>Business name <span class="req">*</span></label><input type="text" name="business_name" id="f_business_name" placeholder="e.g. Acme Plumbing LLC" required></div>
+          <div class="field-group"><label>Primary contact <span class="req">*</span></label><input type="text" name="contact_name" id="f_contact_name" placeholder="Full name" required></div>
+          <div class="field-group"><label>Email address <span class="req">*</span></label><input type="email" name="client_email" id="f_client_email" placeholder="name@business.com" required></div>
+          <div class="field-group"><label>Phone number <span class="req">*</span></label><input type="tel" name="phone" id="f_phone" placeholder="(###) ###-####" required></div>
+          <div class="field-group"><label>Business address</label><input type="text" name="address" placeholder="Street, City, State, ZIP"></div>
+          <div class="field-group"><label>Industry / trade</label><input type="text" name="industry" placeholder="e.g. Plumbing, HVAC, Roofing…"></div>
+          <div class="field-group"><label>Current website URL</label><input type="url" name="website_url" placeholder="https://"></div>
+          <div class="field-group"><label>Years in business</label>
+            <select name="years_in_business"><option value="">Select…</option><option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option></select>
+          </div>
+        </div>
+        <div class="field-grid one">
+          <div class="field-group"><label>How did you hear about MSP Camp?</label>
+            <select name="referral_source"><option value="">Select…</option><option>Google search</option><option>Referral from client</option><option>Social media</option><option>Google Business Profile</option><option>Online ad</option><option>Trade show / event</option><option>Other</option></select>
+          </div>
+          <div class="field-group" style="margin-top:12px"><label>Initial notes / questions</label><textarea name="client_notes" placeholder="Anything you'd like us to know before we get started…"></textarea></div>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="form-step" id="step-1">
+        <p class="section-title"><i class="ti ti-list-check"></i>Select services — choose all that apply</p>
+        <div class="service-selector-grid">
+          <div class="service-card" data-service="seo" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-search"></i></div><div class="svc-text"><h3>SEO / GEO</h3><p>Local rankings, organic traffic, AI engine visibility</p></div><i class="ti ti-circle-check svc-check"></i></div>
+          <div class="service-card" data-service="web" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-device-laptop"></i></div><div class="svc-text"><h3>Website design</h3><p>New builds, redesigns, landing pages</p></div><i class="ti ti-circle-check svc-check"></i></div>
+          <div class="service-card" data-service="gbp" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-map-pin"></i></div><div class="svc-text"><h3>Google Business Profile</h3><p>Map pack optimization, reviews, management</p></div><i class="ti ti-circle-check svc-check"></i></div>
+          <div class="service-card" data-service="lsa" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-shield-check"></i></div><div class="svc-text"><h3>Local service ads</h3><p>Google Guaranteed pay-per-lead ads</p></div><i class="ti ti-circle-check svc-check"></i></div>
+          <div class="service-card" data-service="gads" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-ad"></i></div><div class="svc-text"><h3>Google Ads</h3><p>Search, display, and remarketing campaigns</p></div><i class="ti ti-circle-check svc-check"></i></div>
+          <div class="service-card" data-service="social" onclick="toggleSvc(this)"><div class="svc-icon"><i class="ti ti-brand-instagram"></i></div><div class="svc-text"><h3>Social media</h3><p>Organic content, paid social, community mgmt</p></div><i class="ti ti-circle-check svc-check"></i></div>
+        </div>
+        <p id="svc-error" style="color:#dc2626;font-size:13px;display:none"><i class="ti ti-alert-circle"></i> Please select at least one service.</p>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="form-step" id="step-2">
+        <p class="section-title"><i class="ti ti-file-description"></i>Service details</p>
+        <div class="service-tabs" id="svc-tabs" style="display:none"></div>
+
+        <!-- ══ SEO ══ -->
+        <div class="service-panel" id="panel-seo">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Tell us about your search visibility goals, provide account access, and give us what we need to create great content.</div>
+
+          <p class="section-title"><i class="ti ti-target-arrow"></i>SEO goals & targeting</p>
+          <div class="field-grid">
+            <div class="field-group"><label>Primary service city <span class="req">*</span></label><input type="text" name="seo_city" placeholder="e.g. Tampa, FL"></div>
+            <div class="field-group"><label>Additional target cities</label><input type="text" name="seo_other_cities" placeholder="e.g. Sarasota, Bradenton…"></div>
+            <div class="field-group"><label>Top services to rank for</label><input type="text" name="seo_keywords" placeholder="e.g. AC repair, drain cleaning…"></div>
+            <div class="field-group"><label>Top competitors (names or URLs)</label><input type="text" name="seo_competitors" placeholder="Competitor names or websites"></div>
+            <div class="field-group"><label>Current monthly traffic (approx.)</label>
+              <select name="seo_traffic"><option value="">Unknown</option><option>0–100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select>
+            </div>
+            <div class="field-group"><label>Current average ranking</label>
+              <select name="seo_ranking"><option value="">Don't know</option><option>Top 3</option><option>Page 1 (4–10)</option><option>Page 2</option><option>Page 3+</option><option>Not ranking</option></select>
+            </div>
+          </div>
+          <div class="field-grid one">
+            <div class="field-group"><label>GEO / AI visibility goals</label>
+              <div class="radio-group">
+                <label class="radio-pill"><input type="radio" name="seo_geo" value="Yes — appear in AI answers"> Yes — appear in AI answers (ChatGPT, Perplexity, Google AI)</label>
+                <label class="radio-pill"><input type="radio" name="seo_geo" value="Not a priority"> Not a priority</label>
+                <label class="radio-pill"><input type="radio" name="seo_geo" value="Need guidance"> Need guidance</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+          <p class="section-title"><i class="ti ti-key"></i>Website & account access</p>
+          <div class="access-box">
+            <h5><i class="ti ti-world"></i>Website / CMS access</h5>
+            <div class="field-grid">
+              <div class="field-group"><label>CMS / Admin login URL</label><input type="url" name="seo_cms_url" placeholder="https://yoursite.com/wp-admin"></div>
+              <div class="field-group"><label>CMS username</label><input type="text" name="seo_cms_user" placeholder="Admin username" autocomplete="off"></div>
+              <div class="field-group"><label>CMS password</label><input type="password" name="seo_cms_pass" placeholder="Password" autocomplete="off"></div>
+              <div class="field-group"><label>Hosting provider</label><input type="text" name="seo_host" placeholder="e.g. GoDaddy, SiteGround, WP Engine"></div>
+            </div>
+            <div class="field-group one"><label>Additional access instructions</label><textarea name="seo_cms_notes" placeholder="Two-factor auth steps, staging vs live, dev access, FTP details, etc."></textarea></div>
+          </div>
+          <div class="access-box" style="margin-top:.75rem">
+            <h5><i class="ti ti-brand-google"></i>Google account access</h5>
+            <div class="field-grid">
+              <div class="field-group"><label>Google account email used for GA4 / GSC</label><input type="email" name="seo_google_email" placeholder="google-account@gmail.com"><p class="helper">We'll request access from this account</p></div>
+              <div class="field-group"><label>GA4 property ID (if known)</label><input type="text" name="seo_ga4_id" placeholder="e.g. G-XXXXXXXXXX or 123456789"></div>
+              <div class="field-group"><label>Search Console already shared?</label>
+                <select name="seo_gsc_shared"><option value="">Select…</option><option>Yes — already shared with MSP Camp</option><option>No — will share after this form</option><option>Need help setting it up</option><option>Don't have it set up</option></select>
+              </div>
+              <div class="field-group"><label>Google Ads account ID (if applicable)</label><input type="text" name="seo_gads_id" placeholder="###-###-####"></div>
+            </div>
+            <div class="field-grid one" style="margin-top:4px">
+              <div class="field-group"><label>Instructions / notes for Google access sharing</label><textarea name="seo_google_notes" placeholder="Describe any access restrictions, multiple properties, tag manager, other tools connected (CallRail, Hotjar, etc.)…"></textarea></div>
+            </div>
+          </div>
+          <div class="check-grid" style="margin-top:.75rem">
+            <label class="check-item"><input type="checkbox" name="seo_gsc"> Google Search Console access ready</label>
+            <label class="check-item"><input type="checkbox" name="seo_ga4"> Google Analytics / GA4 ready</label>
+            <label class="check-item"><input type="checkbox" name="seo_gads"> Google Ads account access</label>
+            <label class="check-item"><input type="checkbox" name="seo_gtm"> Google Tag Manager access</label>
+            <label class="check-item"><input type="checkbox" name="seo_prev_agency"> Previously worked with SEO agency</label>
+            <label class="check-item"><input type="checkbox" name="seo_penalty"> Has had a Google penalty before</label>
+          </div>
+
+          <div class="divider"></div>
+          <p class="section-title"><i class="ti ti-pencil"></i>Content & business information</p>
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>This section helps our content writers create accurate, compelling copy. Be as detailed as possible.</div>
+          <div class="field-grid one">
+            <div class="field-group"><label>Business description / about us <span class="req">*</span></label><textarea name="seo_about" style="min-height:110px" placeholder="Tell us about your business — founding story, what you do, what makes you different, your mission or values. Write this as you'd tell a new customer."></textarea></div>
+          </div>
+          <div class="field-grid">
+            <div class="field-group"><label>Primary services offered (detailed)</label><textarea name="seo_services_detail" placeholder="List and briefly describe each service you offer — include brands, equipment, or specializations (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
+            <div class="field-group"><label>Unique selling points / differentiators</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. 24/7 emergency service, licensed & insured, same-day guarantee, family-owned 20+ years, financing available)"></textarea></div>
+            <div class="field-group"><label>Target / ideal customer</label><textarea name="seo_target_customer" placeholder="Who is your best customer? (e.g. homeowners in 35–60 age range, commercial property managers, new construction builders, rental property owners)"></textarea></div>
+            <div class="field-group"><label>Service area details</label><textarea name="seo_service_area_detail" placeholder="List all cities, counties, or ZIP codes you serve. Note if some areas are primary vs secondary markets."></textarea></div>
+            <div class="field-group"><label>Credentials, licenses & awards</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Angi, manufacturer certifications, awards, years in business milestones, Google rating, etc."></textarea></div>
+            <div class="field-group"><label>Frequently asked customer questions</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become FAQ content and schema markup."></textarea></div>
+            <div class="field-group"><label>Brand voice / tone for content</label>
+              <div class="radio-group" style="margin-top:6px">
+                <label class="radio-pill"><input type="radio" name="seo_voice" value="Professional & trustworthy"> Professional & trustworthy</label>
+                <label class="radio-pill"><input type="radio" name="seo_voice" value="Friendly & conversational"> Friendly & conversational</label>
+                <label class="radio-pill"><input type="radio" name="seo_voice" value="Bold & direct"> Bold & direct</label>
+                <label class="radio-pill"><input type="radio" name="seo_voice" value="Educational & informative"> Educational & informative</label>
+              </div>
+            </div>
+            <div class="field-group"><label>Topics / claims to avoid in content</label><textarea name="seo_avoid" placeholder="Anything to avoid — competitors to not mention, pricing not to publish, legal restrictions, services no longer offered, etc."></textarea></div>
+          </div>
+          <div class="field-grid one">
+            <div class="field-group"><label>Existing content assets</label><textarea name="seo_existing_content" placeholder="Do you have existing blog posts, videos, brochures, before/after photos, case studies, or testimonials we can repurpose?"></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Content goals (pages / posts needed)</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for AC repair, HVAC installation, etc."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Additional SEO / content notes</label><textarea name="seo_notes" placeholder="Past SEO work, penalties, technical issues, content calendar, anything else…"></textarea></div>
+          </div>
+        </div>
+
+        <!-- ══ WEBSITE DESIGN ══ -->
+        <div class="service-panel" id="panel-web">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Help us understand your website project — new build, redesign, or landing pages.</div>
+          <div class="field-grid">
+            <div class="field-group"><label>Project type</label><select name="web_type"><option value="">Select…</option><option>Brand new website</option><option>Redesign existing site</option><option>Landing page(s) only</option><option>Add pages to existing site</option></select></div>
+            <div class="field-group"><label>Current platform</label><select name="web_platform"><option value="">None / not sure</option><option>WordPress</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Webflow</option><option>Custom / other</option></select></div>
+            <div class="field-group"><label>Pages needed</label><select name="web_pages"><option value="">Not sure</option><option>1–5</option><option>6–15</option><option>16–30</option><option>30+</option></select></div>
+            <div class="field-group"><label>Launch timeline</label><select name="web_timeline"><option value="">Flexible</option><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>2–3 months</option><option>3+ months</option></select></div>
+            <div class="field-group"><label>Budget range</label><select name="web_budget"><option value="">Select…</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></div>
+            <div class="field-group"><label>Inspiration sites</label><input type="text" name="web_inspiration" placeholder="URLs of sites you love"></div>
+          </div>
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px">Features needed</p>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="web_booking"> Online booking / scheduling</label>
+            <label class="check-item"><input type="checkbox" name="web_forms"> Contact / quote forms</label>
+            <label class="check-item"><input type="checkbox" name="web_chat"> Live chat integration</label>
+            <label class="check-item"><input type="checkbox" name="web_gallery"> Photo / portfolio gallery</label>
+            <label class="check-item"><input type="checkbox" name="web_blog"> Blog / news section</label>
+            <label class="check-item"><input type="checkbox" name="web_reviews"> Review / testimonial display</label>
+            <label class="check-item"><input type="checkbox" name="web_ecomm"> E-commerce / payments</label>
+            <label class="check-item"><input type="checkbox" name="web_multilang"> Multi-language support</label>
+          </div>
+          <div class="field-grid one" style="margin-top:12px">
+            <div class="field-group"><label>Brand assets</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_brand" value="Full kit"> Full kit (logo, colors, fonts)</label><label class="radio-pill"><input type="radio" name="web_brand" value="Logo only"> Logo only</label><label class="radio-pill"><input type="radio" name="web_brand" value="Need branding"> Need branding help</label></div></div>
+            <div class="field-group" style="margin-top:12px"><label>Website goal</label><textarea name="web_goal" placeholder="Generate leads, showcase work, take bookings, sell products…"></textarea></div>
+          </div>
+        </div>
+
+        <!-- ══ GBP ══ -->
+        <div class="service-panel" id="panel-gbp">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>We'll optimize your Google Business Profile to dominate the local map pack.</div>
+          <div class="field-grid">
+            <div class="field-group"><label>Business name (exact)</label><input type="text" name="gbp_name" placeholder="As it appears on Google"></div>
+            <div class="field-group"><label>Business phone</label><input type="tel" name="gbp_phone" placeholder="(###) ###-####"></div>
+            <div class="field-group"><label>GBP status</label><select name="gbp_status"><option value="">Select…</option><option>Verified & active</option><option>Claimed, not verified</option><option>Not claimed</option><option>Suspended</option><option>Don't have one</option></select></div>
+            <div class="field-group"><label>Primary category</label><input type="text" name="gbp_category" placeholder="e.g. Plumber, HVAC Contractor…"></div>
+            <div class="field-group"><label>Service area / ZIP codes</label><input type="text" name="gbp_area" placeholder="Cities or radius"></div>
+            <div class="field-group"><label>Review count</label><select name="gbp_reviews"><option value="">Not sure</option><option>0</option><option>1–10</option><option>11–50</option><option>51–100</option><option>100+</option></select></div>
+            <div class="field-group"><label>Avg. star rating</label><select name="gbp_rating"><option value="">Don't know</option><option>5.0</option><option>4.5–4.9</option><option>4.0–4.4</option><option>3.5–3.9</option><option>Under 3.5</option></select></div>
+            <div class="field-group"><label>GBP access</label><select name="gbp_access"><option value="">Select…</option><option>Yes — I'm the owner</option><option>Yes — I'm a manager</option><option>No access</option><option>With previous agency</option></select></div>
+          </div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="gbp_photos"> Photos available</label>
+            <label class="check-item"><input type="checkbox" name="gbp_services_list"> Services list ready</label>
+            <label class="check-item"><input type="checkbox" name="gbp_qa"> Q&A needs setup</label>
+            <label class="check-item"><input type="checkbox" name="gbp_review_strat"> Need review strategy</label>
+            <label class="check-item"><input type="checkbox" name="gbp_posts"> Posts / offers wanted</label>
+            <label class="check-item"><input type="checkbox" name="gbp_booking"> Booking link needed</label>
+          </div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>GBP issues / suspensions</label><textarea name="gbp_issues" placeholder="Duplicate listings, address changes, policy violations…"></textarea></div></div>
+        </div>
+
+        <!-- ══ LSA ══ -->
+        <div class="service-panel" id="panel-lsa">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Local Service Ads — pay-per-lead at the top of Google. We handle verification and management.</div>
+          <div class="field-grid">
+            <div class="field-group"><label>Legal business name</label><input type="text" name="lsa_legal" placeholder="As registered with state"></div>
+            <div class="field-group"><label>Business category</label><select name="lsa_category"><option value="">Select…</option><option>Plumbing</option><option>HVAC</option><option>Electrical</option><option>Roofing</option><option>Landscaping</option><option>Locksmith</option><option>Pest control</option><option>Cleaning</option><option>General contractor</option><option>Other</option></select></div>
+            <div class="field-group"><label>Service ZIP codes</label><input type="text" name="lsa_zips" placeholder="ZIP codes or cities"></div>
+            <div class="field-group"><label>Monthly lead budget</label><select name="lsa_budget"><option value="">Select…</option><option>$500–$1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000+</option></select></div>
+            <div class="field-group"><label>License number</label><input type="text" name="lsa_license" placeholder="State contractor license #"></div>
+            <div class="field-group"><label>Insurance carrier</label><input type="text" name="lsa_insurance" placeholder="Insurance company name"></div>
+            <div class="field-group"><label>Insurance expiry</label><input type="date" name="lsa_ins_exp"></div>
+            <div class="field-group"><label>LSA account status</label><select name="lsa_status"><option value="">Select…</option><option>No account yet</option><option>Active</option><option>Paused</option><option>Previously rejected</option></select></div>
+          </div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="lsa_bg"> Background check done</label>
+            <label class="check-item"><input type="checkbox" name="lsa_lic_docs"> License docs ready</label>
+            <label class="check-item"><input type="checkbox" name="lsa_ins_cert"> Insurance cert available</label>
+            <label class="check-item"><input type="checkbox" name="lsa_guaranteed"> Google Guaranteed desired</label>
+          </div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Services to advertise</label><textarea name="lsa_services" placeholder="Exact services / job types you want LSA leads for"></textarea></div></div>
+        </div>
+
+        <!-- ══ GOOGLE ADS ══ -->
+        <div class="service-panel" id="panel-gads">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>We'll build and manage high-converting Google Ads campaigns.</div>
+          <div class="field-grid">
+            <div class="field-group"><label>Monthly ad budget</label><select name="gads_budget"><option value="">Select…</option><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500–$15,000</option><option>$15,000+</option></select></div>
+            <div class="field-group"><label>Campaign goal</label><select name="gads_goal"><option value="">Select…</option><option>Phone calls</option><option>Form submissions</option><option>Website traffic</option><option>Brand awareness</option><option>E-commerce sales</option><option>Multiple goals</option></select></div>
+            <div class="field-group"><label>Existing Google Ads account?</label><select name="gads_existing"><option value="">Select…</option><option>Yes</option><option>No — new needed</option><option>Had one before</option></select></div>
+            <div class="field-group"><label>Google Ads account ID</label><input type="text" name="gads_id" placeholder="###-###-####"></div>
+            <div class="field-group"><label>Geographic target</label><input type="text" name="gads_geo" placeholder="City, state, radius, ZIP codes"></div>
+            <div class="field-group"><label>Landing page</label><select name="gads_landing"><option value="">Select…</option><option>Existing site page</option><option>Need new landing page</option><option>Multiple pages</option></select></div>
+            <div class="field-group"><label>Revenue per new customer</label><select name="gads_revenue"><option value="">Prefer not to say</option><option>Under $200</option><option>$200–$500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
+            <div class="field-group"><label>Keywords to target</label><input type="text" name="gads_keywords" placeholder="e.g. emergency plumber, AC replacement…"></div>
+          </div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="gads_search"> Search ads</label>
+            <label class="check-item"><input type="checkbox" name="gads_display"> Display / banner</label>
+            <label class="check-item"><input type="checkbox" name="gads_rsa"> Responsive search ads</label>
+            <label class="check-item"><input type="checkbox" name="gads_call"> Call-only ads</label>
+            <label class="check-item"><input type="checkbox" name="gads_retarget"> Remarketing</label>
+            <label class="check-item"><input type="checkbox" name="gads_youtube"> YouTube / video</label>
+          </div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Past ad experience & notes</label><textarea name="gads_notes" placeholder="What worked, what didn't, previous agencies, account issues…"></textarea></div></div>
+        </div>
+
+        <!-- ══ SOCIAL MEDIA ══ -->
+        <div class="service-panel" id="panel-social">
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Organic content to paid social — tell us your platforms and goals.</div>
+          <div class="field-grid">
+            <div class="field-group"><label>Primary goal</label><select name="social_goal"><option value="">Select…</option><option>Brand awareness</option><option>Lead generation</option><option>Community engagement</option><option>Website traffic</option><option>Paid ads only</option><option>All of the above</option></select></div>
+            <div class="field-group"><label>Monthly paid social budget</label><select name="social_budget"><option value="">Organic only</option><option>$250–$750</option><option>$750–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500+</option></select></div>
+          </div>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="social_fb"> Facebook</label>
+            <label class="check-item"><input type="checkbox" name="social_ig"> Instagram</label>
+            <label class="check-item"><input type="checkbox" name="social_tiktok"> TikTok</label>
+            <label class="check-item"><input type="checkbox" name="social_li"> LinkedIn</label>
+            <label class="check-item"><input type="checkbox" name="social_yt"> YouTube</label>
+            <label class="check-item"><input type="checkbox" name="social_x"> X / Twitter</label>
+            <label class="check-item"><input type="checkbox" name="social_nd"> Nextdoor</label>
+            <label class="check-item"><input type="checkbox" name="social_pin"> Pinterest</label>
+          </div>
+          <div class="field-grid" style="margin-top:12px">
+            <div class="field-group"><label>Facebook page URL</label><input type="url" name="social_fb_url" placeholder="https://facebook.com/…"></div>
+            <div class="field-group"><label>Instagram handle</label><input type="text" name="social_ig_handle" placeholder="@handle"></div>
+            <div class="field-group"><label>Posting frequency</label><select name="social_freq"><option value="">Select…</option><option>Daily</option><option>3–5x/week</option><option>1–2x/week</option><option>A few times/month</option></select></div>
+            <div class="field-group"><label>Content you can provide</label><select name="social_content"><option value="">Select…</option><option>Photos & videos</option><option>Finished job photos only</option><option>Nothing — fully managed</option><option>Mix of both</option></select></div>
+            <div class="field-group"><label>Target age range</label><select name="social_age"><option value="">All ages</option><option>18–34</option><option>25–44</option><option>35–55</option><option>45–65</option><option>55+</option></select></div>
+            <div class="field-group"><label>Target customer type</label><select name="social_customer"><option value="">Select…</option><option>Homeowners (residential)</option><option>Business owners (commercial)</option><option>Both</option></select></div>
+          </div>
+          <div class="field-grid one">
+            <div class="field-group"><label>Brand voice</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="social_voice" value="Professional"> Professional & trustworthy</label><label class="radio-pill"><input type="radio" name="social_voice" value="Friendly"> Friendly & casual</label><label class="radio-pill"><input type="radio" name="social_voice" value="Bold"> Bold & authoritative</label><label class="radio-pill"><input type="radio" name="social_voice" value="Educational"> Educational</label></div></div>
+            <div class="field-group" style="margin-top:12px"><label>Social media notes</label><textarea name="social_notes" placeholder="Competitors, past campaigns, content ideas…"></textarea></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="form-step" id="step-3">
+        <p class="section-title"><i class="ti ti-send"></i>Review & submit</p>
+        <div class="review-box" id="review-content"></div>
+        <div class="field-grid one"><div class="field-group"><label>Anything else before our first call?</label><textarea name="final_notes" style="min-height:90px" placeholder="Budget constraints, timing, key decision makers, specific concerns…"></textarea></div></div>
+        <div style="background:#e8f4ff;border:1px solid #90c4f0;border-radius:8px;padding:.875rem 1rem;font-size:13px;color:#1a3a5c;margin-top:1rem;display:flex;gap:9px;align-items:flex-start">
+          <i class="ti ti-mail" style="font-size:18px;color:#1B75BB;flex-shrink:0;margin-top:1px"></i>
+          <div>A complete intake summary will be emailed to <strong>analytics@realtimemarketing.com</strong> and a confirmation will be sent to the client. All data is also saved to the team dashboard.</div>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button type="button" class="btn btn-ghost" id="btn-back" onclick="navigate(-1)" style="visibility:hidden"><i class="ti ti-arrow-left"></i> Back</button>
+        <span class="step-counter" id="step-counter">Step 1 of 4</span>
+        <button type="button" class="btn btn-primary" id="btn-next" onclick="navigate(1)">Next <i class="ti ti-arrow-right"></i></button>
+      </div>
+      </form>
+
+      <div class="success-screen" id="success-screen">
+        <div class="success-icon"><i class="ti ti-check"></i></div>
+        <h2>Intake submitted!</h2>
+        <p>Saved to the dashboard and email sent. Our team will follow up within 1 business day.</p>
+        <div style="display:flex;gap:10px;justify-content:center;margin-top:1.5rem;flex-wrap:wrap">
+          <button class="btn btn-primary" onclick="showView('dashboard')"><i class="ti ti-layout-dashboard"></i> View dashboard</button>
+          <button class="btn btn-ghost" onclick="resetForm()"><i class="ti ti-plus"></i> New intake</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<!-- DELETE MODAL -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <h3>Delete this intake?</h3>
+    <p>This will permanently remove the client record from the dashboard. This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Cancel</button>
+      <button class="btn btn-danger" onclick="confirmDelete()"><i class="ti ti-trash"></i> Delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><i class="ti ti-info-circle" id="toast-icon"></i><span id="toast-msg"></span></div>
+
+<script>
+/* ── JSONBIN CONFIG — paste your Master Key from jsonbin.io ── */
+const JSONBIN_KEY = 'YOUR_JSONBIN_MASTER_KEY';
+/* ─────────────────────────────────────────────────────────── */
+
+const DB_KEY = 'rtm_intakes';
+let currentStep = 0;
+let selectedServices = [];
+let selectedClientId = null;
+let deleteTargetId = null;
+let formspreeId = localStorage.getItem('rtm_formspree') || '';
+let fillMode = 'am'; // 'am' | 'client'
+let currentBinId = null; // JSONBin ID for the active intake
+let autoSaveTimer = null;
+
+const SVC_CONFIG = {
+  seo:    {label:'SEO / GEO',           icon:'ti-search'},
+  web:    {label:'Website design',      icon:'ti-device-laptop'},
+  gbp:    {label:'Google Business Profile', icon:'ti-map-pin'},
+  lsa:    {label:'Local service ads',   icon:'ti-shield-check'},
+  gads:   {label:'Google Ads',          icon:'ti-ad'},
+  social: {label:'Social media',        icon:'ti-brand-instagram'},
+};
+
+/* ── STORAGE ── */
+function getIntakes(){ try{ return JSON.parse(localStorage.getItem(DB_KEY)||'[]'); }catch(e){return [];} }
+function saveIntakes(arr){ localStorage.setItem(DB_KEY, JSON.stringify(arr)); }
+function genId(){ return 'rtm_'+Date.now()+'_'+Math.floor(Math.random()*9999); }
+
+/* ── JSONBIN ── */
+const JSONBIN_BASE = 'https://api.jsonbin.io/v3/b';
+
+async function createBin(data){
+  if(!JSONBIN_KEY || JSONBIN_KEY==='YOUR_JSONBIN_MASTER_KEY') return null;
+  try{
+    const r = await fetch(JSONBIN_BASE, {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY,'X-Bin-Private':'false','X-Bin-Name':(data.business_name||'MSP Camp Intake')},
+      body: JSON.stringify(data)
+    });
+    const j = await r.json();
+    return j.metadata?.id || null;
+  }catch(e){ return null; }
+}
+
+async function updateBin(binId, data){
+  if(!JSONBIN_KEY || JSONBIN_KEY==='YOUR_JSONBIN_MASTER_KEY' || !binId) return;
+  try{
+    await fetch(`${JSONBIN_BASE}/${binId}`, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':JSONBIN_KEY},
+      body: JSON.stringify(data)
+    });
+  }catch(e){}
+}
+
+async function fetchBin(binId){
+  try{
+    const headers = {};
+    if(JSONBIN_KEY && JSONBIN_KEY!=='YOUR_JSONBIN_MASTER_KEY') headers['X-Master-Key']=JSONBIN_KEY;
+    const r = await fetch(`${JSONBIN_BASE}/${binId}/latest`, {headers});
+    const j = await r.json();
+    return j.record || null;
+  }catch(e){ return null; }
+}
+
+function collectFormData(){
+  const form = document.getElementById('intake-form');
+  const data = {_bin_updated: new Date().toISOString(), _selected_services: selectedServices.join(',')};
+  form.querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea').forEach(el=>{
+    if(el.name) data[el.name]=el.value;
+  });
+  form.querySelectorAll('input[type=checkbox]').forEach(el=>{ data[el.name]=el.checked?'on':''; });
+  form.querySelectorAll('input[type=radio]:checked').forEach(el=>{ data[el.name]=el.value; });
+  return data;
+}
+
+async function autoSave(){
+  if(!currentBinId){
+    // create bin on first auto-save
+    const data = collectFormData();
+    const newId = await createBin(data);
+    if(newId){
+      currentBinId = newId;
+      const newUrl = `${location.origin}${location.pathname}?intake=${newId}`;
+      history.replaceState(null,'',newUrl);
+    }
+  } else {
+    await updateBin(currentBinId, collectFormData());
+  }
+}
+
+function scheduleAutoSave(){
+  clearTimeout(autoSaveTimer);
+  autoSaveTimer = setTimeout(autoSave, 1500);
+}
+
+/* ── VIEWS ── */
+function showView(v){
+  document.getElementById('view-dashboard').style.display = v==='dashboard'?'flex':'none';
+  document.getElementById('view-form').style.display      = v==='form'?'block':'none';
+  document.getElementById('btn-dash').style.display       = v==='form'?'flex':'none';
+  if(v==='dashboard') renderSidebar(getIntakes());
+}
+
+/* ── SIDEBAR ── */
+function initials(name){ return (name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase(); }
+function statusLabel(s){ return s==='active'?'Active':s==='progress'?'In progress':'New'; }
+function statusClass(s){ return s==='active'?'status-active':s==='progress'?'status-progress':'status-new'; }
+function fmtDate(iso){ try{ return new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}); }catch(e){return '';} }
+
+function renderSidebar(intakes){
+  const list = document.getElementById('sidebar-list');
+  if(!intakes.length){
+    list.innerHTML='<div class="sidebar-empty"><i class="ti ti-users"></i><p>No intakes yet.<br>Click <strong>New intake</strong> to add your first client.</p></div>';
+    return;
+  }
+  list.innerHTML = intakes.slice().reverse().map(c=>`
+    <div class="client-row${c.id===selectedClientId?' active':''}" onclick="selectClient('${c.id}')">
+      <div class="client-avatar">${initials(c.business_name)}</div>
+      <div class="client-meta">
+        <h3>${esc(c.business_name||'Unnamed')}</h3>
+        <p>${esc(c.industry||c.client_email||'')} &bull; ${fmtDate(c.submitted_at)}</p>
+      </div>
+      <span class="status-pill ${statusClass(c.status)}">${statusLabel(c.status)}</span>
+    </div>`).join('');
+}
+
+function filterClients(q){
+  const all = getIntakes();
+  const filtered = q ? all.filter(c=>(c.business_name||'').toLowerCase().includes(q.toLowerCase())||(c.industry||'').toLowerCase().includes(q.toLowerCase())) : all;
+  renderSidebar(filtered);
+}
+
+/* ── DETAIL VIEW ── */
+function selectClient(id){
+  selectedClientId = id;
+  const all = getIntakes();
+  const c = all.find(x=>x.id===id);
+  if(!c) return;
+  renderSidebar(all);
+  renderDetail(c);
+}
+
+function esc(s){ const d=document.createElement('div');d.textContent=s||'';return d.innerHTML; }
+function val(v){ return v?`<span>${esc(v)}</span>`:`<span class="no-val">—</span>`; }
+function row(label,value){ return value?`<tr><td>${label}</td><td>${esc(value)}</td></tr>`:''; }
+function rowHtml(label,html){ return `<tr><td>${label}</td><td>${html}</td></tr>`; }
+
+function renderDetail(c){
+  const svcs = (c.selected_services||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const hasService = s => svcs.some(sv=>sv.toLowerCase().includes(s));
+
+  let html = `
+  <div class="detail-header">
+    <div class="detail-header-left">
+      <div class="detail-avatar">${initials(c.business_name)}</div>
+      <div class="detail-header-text">
+        <h2>${esc(c.business_name||'Unnamed client')}</h2>
+        <p>${esc(c.contact_name||'')} &bull; ${esc(c.client_email||'')} &bull; ${esc(c.phone||'')} &bull; Submitted ${fmtDate(c.submitted_at)}</p>
+      </div>
+    </div>
+    <div class="detail-actions">
+      <select class="status-select" onchange="updateStatus('${c.id}',this.value)">
+        <option value="new"${c.status==='new'?' selected':''}>New</option>
+        <option value="progress"${c.status==='progress'?' selected':''}>In progress</option>
+        <option value="active"${c.status==='active'?' selected':''}>Active</option>
+      </select>
+      <button class="btn btn-ghost btn-sm" onclick="exportClient('${c.id}')"><i class="ti ti-download"></i> Export</button>
+      <button class="btn btn-danger btn-sm" onclick="openDeleteModal('${c.id}')"><i class="ti ti-trash"></i></button>
+    </div>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-card">
+      <h4><i class="ti ti-building"></i>Business info</h4>
+      <table class="kv-table">
+        ${row('Business',c.business_name)}
+        ${row('Contact',c.contact_name)}
+        ${row('Email',c.client_email)}
+        ${row('Phone',c.phone)}
+        ${row('Address',c.address)}
+        ${row('Industry',c.industry)}
+        ${row('Website',c.website_url)}
+        ${row('Years in business',c.years_in_business)}
+        ${row('Referral source',c.referral_source)}
+      </table>
+    </div>
+    <div class="info-card">
+      <h4><i class="ti ti-list-check"></i>Services selected</h4>
+      <div style="margin-bottom:.75rem">${svcs.map(s=>`<span class="service-tag">${esc(s)}</span>`).join('') || '<span class="no-val">None recorded</span>'}</div>
+      ${c.client_notes?`<div class="section-divider"></div><p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:5px">Client notes</p><p style="font-size:13px;color:#333">${esc(c.client_notes)}</p>`:''}
+    </div>
+  </div>`;
+
+  /* ── SEO DETAIL ── */
+  if(hasService('seo')){
+    html += `<div class="info-grid">
+    <div class="info-card full">
+      <h4><i class="ti ti-search"></i>SEO / GEO — goals & targeting</h4>
+      <table class="kv-table">
+        ${row('Primary city',c.seo_city)}${row('Other cities',c.seo_other_cities)}
+        ${row('Services to rank for',c.seo_keywords)}${row('Competitors',c.seo_competitors)}
+        ${row('Monthly traffic',c.seo_traffic)}${row('Current ranking',c.seo_ranking)}
+        ${row('GEO / AI goals',c.seo_geo)}
+      </table>
+    </div>
+    </div>
+
+    <div class="info-grid">
+    <div class="info-card full">
+      <h4><i class="ti ti-key"></i>SEO — website & account access</h4>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+        <div>
+          <p style="font-size:11px;font-weight:700;color:#1B75BB;text-transform:uppercase;margin-bottom:8px">CMS / Website</p>
+          <table class="kv-table">
+            ${row('Admin URL',c.seo_cms_url)}
+            ${row('Username',c.seo_cms_user)}
+            ${c.seo_cms_pass?`<tr><td>Password</td><td><span style="font-family:monospace;background:#f4f4f5;padding:2px 6px;border-radius:4px;font-size:12px">${esc(c.seo_cms_pass)}</span></td></tr>`:''}
+            ${row('Hosting provider',c.seo_host)}
+          </table>
+          ${c.seo_cms_notes?`<p style="font-size:12px;color:#555;margin-top:8px;line-height:1.5">${esc(c.seo_cms_notes)}</p>`:''}
+        </div>
+        <div>
+          <p style="font-size:11px;font-weight:700;color:#1B75BB;text-transform:uppercase;margin-bottom:8px">Google accounts</p>
+          <table class="kv-table">
+            ${row('Google account email',c.seo_google_email)}
+            ${row('GA4 property ID',c.seo_ga4_id)}
+            ${row('Search Console shared',c.seo_gsc_shared)}
+            ${row('Google Ads account ID',c.seo_gads_id)}
+          </table>
+          ${c.seo_google_notes?`<p style="font-size:12px;color:#555;margin-top:8px;line-height:1.5">${esc(c.seo_google_notes)}</p>`:''}
+        </div>
+      </div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
+        ${[['seo_gsc','GSC ready'],['seo_ga4','GA4 ready'],['seo_gads','Google Ads access'],['seo_gtm','GTM access'],['seo_prev_agency','Prev. SEO agency'],['seo_penalty','Had penalty']].map(([k,label])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${label}</span>`:'').join('')}
+      </div>
+    </div>
+    </div>
+
+    <div class="info-grid">
+    <div class="info-card full">
+      <h4><i class="ti ti-pencil"></i>SEO — content & business information</h4>
+      <table class="kv-table">
+        ${row('About the business',c.seo_about)}
+        ${row('Services (detailed)',c.seo_services_detail)}
+        ${row('Unique selling points',c.seo_usp)}
+        ${row('Target customer',c.seo_target_customer)}
+        ${row('Service area detail',c.seo_service_area_detail)}
+        ${row('Credentials / licenses',c.seo_credentials)}
+        ${row('Customer FAQs',c.seo_faqs)}
+        ${row('Brand voice',c.seo_voice)}
+        ${row('Topics to avoid',c.seo_avoid)}
+        ${row('Existing content assets',c.seo_existing_content)}
+        ${row('Content goals',c.seo_content_goals)}
+        ${row('Additional SEO notes',c.seo_notes)}
+      </table>
+    </div>
+    </div>`;
+  }
+
+  /* ── WEBSITE DESIGN ── */
+  if(hasService('website')){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-device-laptop"></i>Website design</h4>
+    <table class="kv-table">${row('Project type',c.web_type)}${row('Platform',c.web_platform)}${row('Pages',c.web_pages)}${row('Timeline',c.web_timeline)}${row('Budget',c.web_budget)}${row('Inspiration sites',c.web_inspiration)}${row('Brand assets',c.web_brand)}${row('Website goal',c.web_goal)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['web_booking','Booking'],['web_forms','Quote forms'],['web_chat','Live chat'],['web_gallery','Gallery'],['web_blog','Blog'],['web_reviews','Reviews'],['web_ecomm','E-commerce'],['web_multilang','Multi-language']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    </div></div>`;
+  }
+
+  /* ── GBP ── */
+  if(hasService('google business')||hasService('gbp')){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-map-pin"></i>Google Business Profile</h4>
+    <table class="kv-table">${row('Business name',c.gbp_name)}${row('Phone',c.gbp_phone)}${row('Status',c.gbp_status)}${row('Category',c.gbp_category)}${row('Service area',c.gbp_area)}${row('Review count',c.gbp_reviews)}${row('Avg. rating',c.gbp_rating)}${row('GBP access',c.gbp_access)}${row('Issues',c.gbp_issues)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['gbp_photos','Photos'],['gbp_services_list','Services list'],['gbp_qa','Q&A'],['gbp_review_strat','Review strategy'],['gbp_posts','Posts'],['gbp_booking','Booking link']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    </div></div>`;
+  }
+
+  /* ── LSA ── */
+  if(hasService('local service')){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-shield-check"></i>Local service ads</h4>
+    <table class="kv-table">${row('Legal name',c.lsa_legal)}${row('Category',c.lsa_category)}${row('Service ZIPs',c.lsa_zips)}${row('Monthly budget',c.lsa_budget)}${row('License #',c.lsa_license)}${row('Insurance carrier',c.lsa_insurance)}${row('Insurance expiry',c.lsa_ins_exp)}${row('Account status',c.lsa_status)}${row('Services to advertise',c.lsa_services)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['lsa_bg','BG check done'],['lsa_lic_docs','License docs ready'],['lsa_ins_cert','Insurance cert'],['lsa_guaranteed','Google Guaranteed']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    </div></div>`;
+  }
+
+  /* ── GOOGLE ADS ── */
+  if(hasService('google ads')){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-ad"></i>Google Ads</h4>
+    <table class="kv-table">${row('Monthly budget',c.gads_budget)}${row('Campaign goal',c.gads_goal)}${row('Existing account',c.gads_existing)}${row('Account ID',c.gads_id)}${row('Geographic target',c.gads_geo)}${row('Landing page',c.gads_landing)}${row('Revenue per customer',c.gads_revenue)}${row('Keywords',c.gads_keywords)}${row('Notes',c.gads_notes)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['gads_search','Search ads'],['gads_display','Display'],['gads_rsa','RSA'],['gads_call','Call-only'],['gads_retarget','Remarketing'],['gads_youtube','YouTube']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    </div></div>`;
+  }
+
+  /* ── SOCIAL ── */
+  if(hasService('social')){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-brand-instagram"></i>Social media</h4>
+    <table class="kv-table">${row('Primary goal',c.social_goal)}${row('Paid budget',c.social_budget)}${row('Facebook URL',c.social_fb_url)}${row('Instagram handle',c.social_ig_handle)}${row('Posting frequency',c.social_freq)}${row('Content provided',c.social_content)}${row('Target age',c.social_age)}${row('Customer type',c.social_customer)}${row('Brand voice',c.social_voice)}${row('Notes',c.social_notes)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['social_fb','Facebook'],['social_ig','Instagram'],['social_tiktok','TikTok'],['social_li','LinkedIn'],['social_yt','YouTube'],['social_x','X/Twitter'],['social_nd','Nextdoor'],['social_pin','Pinterest']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    </div></div>`;
+  }
+
+  if(c.final_notes){
+    html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-notes"></i>Final notes</h4><p style="font-size:13px;color:#333;line-height:1.6">${esc(c.final_notes)}</p></div></div>`;
+  }
+
+  document.getElementById('detail-panel').innerHTML = html;
+}
+
+/* ── FORM LOGIC ── */
+function toggleSvc(card){
+  const svc = card.dataset.service;
+  card.classList.toggle('selected');
+  if(card.classList.contains('selected')){ if(!selectedServices.includes(svc)) selectedServices.push(svc); }
+  else { selectedServices = selectedServices.filter(s=>s!==svc); }
+  document.getElementById('svc-error').style.display='none';
+}
+
+function buildSvcTabs(){
+  const tabs = document.getElementById('svc-tabs');
+  tabs.innerHTML='';
+  if(!selectedServices.length){tabs.style.display='none';return;}
+  tabs.style.display='flex';
+  selectedServices.forEach((svc,i)=>{
+    const b=document.createElement('button');
+    b.type='button';b.className='stab'+(i===0?' active':'');b.dataset.panel=svc;
+    b.innerHTML=`<i class="ti ${SVC_CONFIG[svc].icon}"></i>${SVC_CONFIG[svc].label}`;
+    b.onclick=()=>switchTab(svc);
+    tabs.appendChild(b);
+  });
+  document.querySelectorAll('.service-panel').forEach(p=>p.classList.remove('active'));
+  const fp=document.getElementById('panel-'+selectedServices[0]);
+  if(fp) fp.classList.add('active');
+}
+
+function switchTab(svc){
+  document.querySelectorAll('#svc-tabs .stab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.service-panel').forEach(p=>p.classList.remove('active'));
+  const b=document.querySelector(`#svc-tabs .stab[data-panel="${svc}"]`);
+  if(b) b.classList.add('active');
+  const p=document.getElementById('panel-'+svc);
+  if(p) p.classList.add('active');
+}
+
+function buildReview(){
+  const fd = new FormData(document.getElementById('intake-form'));
+  const biz = fd.get('business_name')||'—';
+  const contact = fd.get('contact_name')||'—';
+  const email = fd.get('client_email')||'—';
+  const svcs = selectedServices.map(s=>SVC_CONFIG[s].label).join(', ')||'—';
+  document.getElementById('review-content').innerHTML=
+    `<strong>Business:</strong> ${esc(biz)}&nbsp;&nbsp;<strong>Contact:</strong> ${esc(contact)}&nbsp;&nbsp;<strong>Email:</strong> ${esc(email)}<br>
+     <strong>Services:</strong> ${esc(svcs)}`;
+  document.getElementById('hidden-services').value = svcs;
+}
+
+function validate(step){
+  if(step===0){
+    const ids=['f_business_name','f_contact_name','f_client_email','f_phone'];
+    let ok=true;
+    ids.forEach(id=>{const el=document.getElementById(id);if(!el||!el.value.trim()){el&&el.classList.add('error');ok=false;}else el.classList.remove('error');});
+    if(!ok){showToast('Please fill in all required fields.','error');return false;}
+  }
+  if(step===1){
+    if(!selectedServices.length){document.getElementById('svc-error').style.display='block';showToast('Select at least one service.','error');return false;}
+  }
+  return true;
+}
+
+function navigate(dir){
+  if(!validate(currentStep)) return;
+  if(dir===1&&currentStep===3){submitIntake();return;}
+  currentStep=Math.max(0,Math.min(3,currentStep+dir));
+  document.querySelectorAll('.form-step').forEach((s,i)=>s.classList.toggle('active',i===currentStep));
+  if(currentStep===2) buildSvcTabs();
+  if(currentStep===3) buildReview();
+  updateProgress();
+}
+
+function updateProgress(){
+  document.querySelectorAll('.pstep').forEach((p,i)=>{
+    p.classList.toggle('done',i<currentStep);
+    p.classList.toggle('active',i===currentStep);
+  });
+  document.getElementById('prog-fill').style.width=(currentStep/3*100)+'%';
+  document.getElementById('btn-back').style.visibility=currentStep===0?'hidden':'visible';
+  const nb=document.getElementById('btn-next');
+  nb.innerHTML=currentStep===3?'<i class="ti ti-send"></i> Submit intake':'Next <i class="ti ti-arrow-right"></i>';
+  document.getElementById('step-counter').textContent=`Step ${currentStep+1} of 4`;
+}
+
+async function submitIntake(){
+  const form = document.getElementById('intake-form');
+  const fd = new FormData(form);
+  const nextBtn=document.getElementById('btn-next');
+  nextBtn.disabled=true;nextBtn.innerHTML='<i class="ti ti-loader-2"></i> Saving…';
+
+  const record = {id: currentBinId||genId(), submitted_at:new Date().toISOString(), status:'new', fill_mode:fillMode, _submitted:true};
+  for(let [k,v] of fd.entries()){ record[k]=v; }
+  form.querySelectorAll('input[type=checkbox]').forEach(cb=>{ record[cb.name]=cb.checked; });
+  record._selected_services = selectedServices.join(',');
+
+  // Save to JSONBin (update existing bin or create new)
+  if(currentBinId){
+    await updateBin(currentBinId, record);
+  } else {
+    const newId = await createBin(record);
+    if(newId) currentBinId = newId;
+  }
+
+  // Save to local dashboard index
+  const existing = getIntakes();
+  const idx = existing.findIndex(x=>x.id===record.id);
+  if(idx>=0) existing[idx]=record; else existing.push(record);
+  saveIntakes(existing);
+
+  // Email via Formspree if configured
+  if(formspreeId){
+    try{ await fetch(`https://formspree.io/f/${formspreeId}`,{method:'POST',body:fd,headers:{Accept:'application/json'}}); }catch(e){}
+  }
+
+  document.getElementById('intake-form').style.display='none';
+  document.querySelector('.progress-wrap').style.display='none';
+  document.getElementById('setup-note').style.display='none';
+  document.getElementById('success-screen').style.display='block';
+}
+
+function resetForm(){
+  currentStep=0; selectedServices=[]; fillMode='am'; currentBinId=null;
+  history.replaceState(null,'',location.pathname);
+  document.getElementById('intake-form').reset();
+  document.getElementById('intake-form').style.display='block';
+  document.querySelector('.progress-wrap').style.display='block';
+  document.getElementById('setup-note').style.display='flex';
+  document.getElementById('success-screen').style.display='none';
+  // reset banner to AM mode
+  const banner=document.getElementById('am-banner');
+  banner.className='am-banner am-mode';
+  document.getElementById('am-banner-icon').className='ti ti-pencil am-banner-icon';
+  document.getElementById('am-banner-title').textContent='Account Manager — Pre-fill';
+  document.getElementById('am-banner-desc').textContent='Fill in everything you already know from the sales call or website research. Fields you complete are highlighted in gold. When ready, generate a link and send it to the client — they\'ll see your entries and only need to fill in what\'s missing.';
+  document.getElementById('am-banner-actions').innerHTML='<button class="am-small-btn gold" onclick="generateClientLink()"><i class="ti ti-link"></i> Generate client link</button><button class="am-small-btn outline-gold" id="copy-link-btn" onclick="copyClientLink()" style="display:none"><i class="ti ti-copy"></i> Copy link</button>';
+  document.getElementById('prefill-link-box').style.display='none';
+  document.querySelectorAll('.service-card').forEach(c=>c.classList.remove('selected'));
+  document.querySelectorAll('.am-field-badge').forEach(b=>b.remove());
+  document.querySelectorAll('.am-filled').forEach(el=>el.classList.remove('am-filled'));
+  document.querySelectorAll('.form-step').forEach((s,i)=>s.classList.toggle('active',i===0));
+  updateProgress();
+  showView('form');
+  watchAMFields();
+}
+
+function applyFormspree(){
+  const id=document.getElementById('formspree-input').value.trim();
+  if(!id){showToast('Enter your Formspree form ID.','error');return;}
+  formspreeId=id; localStorage.setItem('rtm_formspree',id);
+  const note=document.getElementById('setup-note');
+  note.style.background='#f0fdf4';note.style.borderColor='#86efac';
+  note.querySelector('i').className='ti ti-circle-check';note.querySelector('i').style.color='#16a34a';
+  showToast('Email notifications activated.','success');
+}
+
+/* ── STATUS / DELETE / EXPORT ── */
+function updateStatus(id,status){
+  const arr=getIntakes().map(c=>c.id===id?{...c,status}:c);
+  saveIntakes(arr); renderSidebar(arr);
+  showToast('Status updated.','success');
+}
+
+function openDeleteModal(id){ deleteTargetId=id; document.getElementById('delete-modal').classList.add('open'); }
+function closeModal(){ document.getElementById('delete-modal').classList.remove('open'); deleteTargetId=null; }
+function confirmDelete(){
+  const arr=getIntakes().filter(c=>c.id!==deleteTargetId);
+  saveIntakes(arr); selectedClientId=null;
+  document.getElementById('detail-panel').innerHTML='<div class="detail-empty"><i class="ti ti-users"></i><h2>Select a client</h2><p>Choose a client from the left to view their intake details.</p></div>';
+  renderSidebar(arr); closeModal(); showToast('Client deleted.','error');
+}
+
+function exportClient(id){
+  const c=getIntakes().find(x=>x.id===id);if(!c) return;
+  const lines=Object.entries(c).map(([k,v])=>`${k}: ${v}`).join('\n');
+  const blob=new Blob([lines],{type:'text/plain'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+  a.download=`MSPCamp_Intake_${(c.business_name||'client').replace(/\s+/g,'_')}.txt`;a.click();
+  showToast('Intake exported.','success');
+}
+
+/* ── TOAST ── */
+function showToast(msg,type=''){
+  const t=document.getElementById('toast');const ic=document.getElementById('toast-icon');
+  document.getElementById('toast-msg').textContent=msg;
+  t.className='toast'+(type?' '+type:'')+' show';
+  ic.className='ti '+(type==='error'?'ti-alert-circle':type==='success'?'ti-circle-check':'ti-info-circle');
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+/* ── AM FIELD TRACKING ── */
+function watchAMFields(){
+  document.getElementById('intake-form').querySelectorAll('input:not([type=hidden]):not([type=checkbox]):not([type=radio]),select,textarea').forEach(el=>{
+    el.addEventListener('change', ()=> markAMFilled(el));
+    el.addEventListener('input',  ()=> markAMFilled(el));
+  });
+}
+
+function enterClientMode(){
+  fillMode = 'client';
+  const banner = document.getElementById('am-banner');
+  banner.className = 'am-banner client-mode';
+  document.getElementById('am-banner-icon').className = 'ti ti-circle-check am-banner-icon';
+  document.getElementById('am-banner-title').textContent = 'Pre-filled by your Account Manager';
+  document.getElementById('am-banner-desc').textContent = 'Your account manager has already filled in what they know. Review the highlighted fields, complete anything that\'s missing, and submit when ready. You can edit any pre-filled value.';
+  document.getElementById('am-banner-actions').innerHTML = '';
+  document.getElementById('prefill-link-box').style.display = 'none';
+}
+
+function markAMFilled(el){
+  if(!el.name || !el.value.trim()) return;
+  el.classList.add(fillMode==='live_call'?'client-filled':'am-filled');
+  amFilledFields.add(el.name);
+  let wrap = el.closest('.field-wrap');
+  if(!wrap){ wrap=document.createElement('div'); wrap.className='field-wrap'; el.parentNode.insertBefore(wrap,el); wrap.appendChild(el); }
+  let badge = wrap.querySelector('.am-field-badge');
+  if(!badge){ badge=document.createElement('span'); badge.className='am-field-badge'; wrap.appendChild(badge); }
+  badge.className = 'am-field-badge '+(fillMode==='live_call'?'override':'by-am');
+  badge.textContent = fillMode==='live_call'?'AM filled':'AM';
+  if(fillMode==='live_call') lapRefresh();
+}
+
+/* ── GENERATE / COPY CLIENT LINK ── */
+async function generateClientLink(){
+  if(!JSONBIN_KEY || JSONBIN_KEY==='YOUR_JSONBIN_MASTER_KEY'){
+    showToast('Add your JSONBin key to the HTML to enable shareable links.','error');
+    return;
+  }
+  showToast('Saving and generating link…','');
+  const data = collectFormData();
+  data._fill_mode = 'am';
+  if(!currentBinId){
+    const newId = await createBin(data);
+    if(!newId){ showToast('Could not create link. Check your JSONBin key.','error'); return; }
+    currentBinId = newId;
+    history.replaceState(null,'',`${location.origin}${location.pathname}?intake=${newId}`);
+  } else {
+    await updateBin(currentBinId, data);
+  }
+  const url = `${location.origin}${location.pathname}?intake=${currentBinId}&client=1`;
+  const box = document.getElementById('prefill-link-box');
+  document.getElementById('prefill-link-text').textContent = url;
+  box.style.display='block';
+  box.dataset.url = url;
+  navigator.clipboard.writeText(url).then(()=>showToast('Client link copied to clipboard!','success')).catch(()=>showToast('Link generated — click box to copy',''));
+}
+
+function copyClientLink(){
+  const url = document.getElementById('prefill-link-box').dataset.url || document.getElementById('prefill-link-text').textContent;
+  if(!url) { generateClientLink(); return; }
+  navigator.clipboard.writeText(url).then(()=>showToast('Link copied!','success')).catch(()=>{});
+}
+
+/* ── LOAD INTAKE FROM URL ── */
+function populateFormFromData(data, markAM){
+  if(data['_selected_services']){
+    selectedServices = data['_selected_services'].split(',').filter(Boolean);
+    selectedServices.forEach(svc=>{
+      const card = document.querySelector(`.service-card[data-service="${svc}"]`);
+      if(card) card.classList.add('selected');
+    });
+  }
+  setTimeout(()=>{
+    const form = document.getElementById('intake-form');
+    Object.entries(data).forEach(([k,v])=>{
+      if(k.startsWith('_')) return;
+      const el = form.querySelector(`[name="${k}"]`);
+      if(!el) return;
+      if(el.type==='checkbox'){ el.checked = v==='on'; }
+      else if(el.type==='radio'){ const r=form.querySelector(`[name="${k}"][value="${v}"]`); if(r) r.checked=true; }
+      else { el.value=v; }
+      if(markAM && el.type!=='checkbox' && el.type!=='radio' && v){
+        el.classList.add('am-filled');
+        let wrap=el.closest('.field-wrap');
+        if(!wrap){wrap=document.createElement('div');wrap.className='field-wrap';el.parentNode.insertBefore(wrap,el);wrap.appendChild(el);}
+        let badge=wrap.querySelector('.am-field-badge');
+        if(!badge){badge=document.createElement('span');badge.className='am-field-badge';wrap.appendChild(badge);}
+        badge.className='am-field-badge by-am'; badge.textContent='AM';
+      }
+    });
+  },100);
+}
+
+async function loadIntakeFromURL(){
+  const params = new URLSearchParams(location.search);
+  const binId = params.get('intake');
+  const isClient = params.get('client')==='1';
+
+  if(!binId) return false;
+
+  currentBinId = binId;
+  showToast('Loading intake…','');
+  const data = await fetchBin(binId);
+  if(!data){ showToast('Could not load intake. Link may be invalid.','error'); return false; }
+
+  populateFormFromData(data, isClient); // mark AM badges only in client mode
+  return isClient ? 'client' : 'am';
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', async ()=>{
+  if(formspreeId) document.getElementById('formspree-input').value=formspreeId;
+
+  // Wire auto-save to all form inputs
+  document.getElementById('intake-form').addEventListener('input', scheduleAutoSave);
+  document.getElementById('intake-form').addEventListener('change', scheduleAutoSave);
+
+  // Check URL for ?intake=<binId>
+  const params = new URLSearchParams(location.search);
+  if(params.get('intake')){
+    showView('form');
+    const mode = await loadIntakeFromURL();
+    if(mode==='client'){
+      fillMode='client';
+      enterClientMode();
+    } else {
+      fillMode='am';
+      watchAMFields();
+    }
+    document.querySelectorAll('.pstep').forEach((p,i)=>{
+      p.addEventListener('click',()=>{ if(i<currentStep){currentStep=i;document.querySelectorAll('.form-step').forEach((s,j)=>s.classList.toggle('active',j===i));updateProgress();} });
+    });
+    return;
+  }
+
+  // Fresh open — show dashboard if intakes exist, otherwise new form
+  const intakes=getIntakes();
+  if(intakes.length) showView('dashboard');
+  else { showView('form'); watchAMFields(); }
+
+  document.querySelectorAll('.pstep').forEach((p,i)=>{
+    p.addEventListener('click',()=>{ if(i<currentStep){currentStep=i;document.querySelectorAll('.form-step').forEach((s,j)=>s.classList.toggle('active',j===i));updateProgress();} });
+  });
+});
+</script>
+</body>
+</html>
