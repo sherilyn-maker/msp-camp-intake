@@ -509,12 +509,21 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>Project type</label><select name="web_type"><option value="">Select…</option><option>Brand new website</option><option>Redesign existing site</option><option>Landing page(s) only</option><option>Add pages to existing site</option></select></div>
             <div class="field-group"><label>Current platform</label><select name="web_platform"><option value="">None / not sure</option><option>WordPress</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Webflow</option><option>Custom / other</option></select></div>
             <div class="field-group"><label>Who created your current site?</label><input type="text" name="web_creator" placeholder="Agency, freelancer, in-house, or unknown"></div>
+            <div class="field-group"><label>What's not working about your current site?</label><textarea name="web_current_issues" placeholder="Pain points, frustrations, or things you want to avoid repeating in the new site"></textarea></div>
             <div class="field-group"><label>Pages needed</label><select name="web_pages"><option value="">Not sure</option><option>1–5</option><option>6–15</option><option>16–30</option><option>30+</option></select></div>
             <div class="field-group"><label>Launch timeline</label><select name="web_timeline"><option value="">Flexible</option><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>2–3 months</option><option>3+ months</option></select></div>
             <div class="field-group"><label>Budget range</label><select name="web_budget"><option value="">Select…</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></div>
             <div class="field-group"><label>Inspiration sites</label><input type="text" name="web_inspiration" placeholder="1-3 example URLs of sites you really like (doesn't have to be industry-specific)"></div>
           </div>
-          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px">Features needed</p>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Domain & hosting</p>
+          <div class="field-grid">
+            <div class="field-group"><label>Domain name</label><input type="text" name="web_domain" placeholder="e.g. yourbusiness.com — leave blank if not registered yet"></div>
+            <div class="field-group"><label>Domain registrar</label><input type="text" name="web_domain_registrar" placeholder="e.g. GoDaddy, Namecheap, Cloudflare, Google Domains"></div>
+            <div class="field-group"><label>Who can update DNS / domain access</label><textarea name="web_domain_access" placeholder="Who holds the login for the domain registrar? Can they make DNS changes, or do we need to request access?"></textarea></div>
+          </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Features needed</p>
           <div class="check-grid">
             <label class="check-item"><input type="checkbox" name="web_booking"> Online booking / scheduling</label>
             <label class="check-item"><input type="checkbox" name="web_forms"> Contact / quote forms</label>
@@ -524,6 +533,17 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <label class="check-item"><input type="checkbox" name="web_reviews"> Review / testimonial display</label>
             <label class="check-item"><input type="checkbox" name="web_ecomm"> E-commerce / payments</label>
             <label class="check-item"><input type="checkbox" name="web_multilang"> Multi-language support</label>
+          </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Legal / compliance pages needed</p>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="web_legal_privacy"> Privacy Policy</label>
+            <label class="check-item"><input type="checkbox" name="web_legal_terms"> Terms of Service</label>
+            <label class="check-item"><input type="checkbox" name="web_legal_ada"> ADA / Accessibility statement</label>
+            <label class="check-item"><input type="checkbox" name="web_legal_cookies"> Cookie consent banner</label>
+          </div>
+          <div class="field-grid one">
+            <div class="field-group"><label>Legal page notes</label><textarea name="web_legal_notes" placeholder="Existing legal copy to reuse, industry-specific disclaimers, licensing language required by state/local law, etc."></textarea></div>
           </div>
 
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Branding</p>
@@ -1072,8 +1092,13 @@ function buildDetailHTML(c){
   /* ── WEBSITE DESIGN ── */
   if(hasService('web')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-device-laptop"></i>Website design</h4>
-    <table class="kv-table">${row('Project type',c.web_type)}${row('Platform',c.web_platform)}${row('Site created by',c.web_creator)}${row('Pages',c.web_pages)}${row('Timeline',c.web_timeline)}${row('Budget',c.web_budget)}${row('Inspiration sites',c.web_inspiration)}</table>
+    <table class="kv-table">${row('Project type',c.web_type)}${row('Platform',c.web_platform)}${row('Site created by',c.web_creator)}${row('Current site pain points',c.web_current_issues)}${row('Pages',c.web_pages)}${row('Timeline',c.web_timeline)}${row('Budget',c.web_budget)}${row('Inspiration sites',c.web_inspiration)}</table>
+    <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Domain & hosting</p>
+    <table class="kv-table">${row('Domain name',c.web_domain)}${row('Domain registrar',c.web_domain_registrar)}${row('DNS / domain access',c.web_domain_access)}</table>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['web_booking','Booking'],['web_forms','Quote forms'],['web_chat','Live chat'],['web_gallery','Gallery'],['web_blog','Blog'],['web_reviews','Reviews'],['web_ecomm','E-commerce'],['web_multilang','Multi-language']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Legal / compliance pages</p>
+    <div style="display:flex;flex-wrap:wrap;gap:6px">${[['web_legal_privacy','Privacy Policy'],['web_legal_terms','Terms of Service'],['web_legal_ada','ADA / Accessibility'],['web_legal_cookies','Cookie consent']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('') || '<span class="no-val">None selected</span>'}</div>
+    ${c.web_legal_notes?`<p style="font-size:12px;color:#555;margin-top:8px;line-height:1.5">${esc(c.web_legal_notes)}</p>`:''}
     <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Branding</p>
     <table class="kv-table">${row('New logo needed',c.web_new_logo)}${row('Colors to include/avoid',c.web_colors)}${row('Preferred font style',c.web_font_style)}${row('Brand assets on hand',c.web_brand)}${row('Existing brand assets link',c.web_brand_link)}</table>
     <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Site content & contact info</p>
