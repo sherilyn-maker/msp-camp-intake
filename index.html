@@ -340,6 +340,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="field-group"><label>Years in business</label>
             <select name="years_in_business"><option value="">Select…</option><option>Less than 1 year</option><option>1–3 years</option><option>3–5 years</option><option>5–10 years</option><option>10+ years</option></select>
           </div>
+          <div class="field-group"><label>Which CRM are you currently using?</label><input type="text" name="crm" placeholder="e.g. HubSpot, Jobber, ServiceTitan, none"><p class="helper">Where do your leads go today?</p></div>
         </div>
         <div class="field-grid one">
           <div class="field-group"><label>How did you hear about MSP Camp?</label>
@@ -377,6 +378,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>Primary service city <span class="req">*</span></label><input type="text" name="seo_city" placeholder="e.g. Tampa, FL"></div>
             <div class="field-group"><label>Additional target cities</label><input type="text" name="seo_other_cities" placeholder="e.g. Sarasota, Bradenton…"></div>
             <div class="field-group"><label>Top services to rank for</label><input type="text" name="seo_keywords" placeholder="e.g. AC repair, drain cleaning…"></div>
+            <div class="field-group"><label>Specific keywords or phrases to target</label><input type="text" name="seo_target_phrases" placeholder="e.g. emergency AC repair Tampa, best plumber near me"></div>
             <div class="field-group"><label>Top competitors (names or URLs)</label><input type="text" name="seo_competitors" placeholder="Competitor names or websites"></div>
             <div class="field-group"><label>Current monthly traffic (approx.)</label>
               <select name="seo_traffic"><option value="">Unknown</option><option>0–100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select>
@@ -384,9 +386,11 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>Current average ranking</label>
               <select name="seo_ranking"><option value="">Don't know</option><option>Top 3</option><option>Page 1 (4–10)</option><option>Page 2</option><option>Page 3+</option><option>Not ranking</option></select>
             </div>
+            <div class="field-group"><label>Month and year founded</label><input type="text" name="seo_founded_date" placeholder="e.g. March 2015"><p class="helper">Used for off-page SEO</p></div>
           </div>
           <div class="field-grid one">
-            <div class="field-group"><label>GEO / AI visibility goals</label>
+            <div class="field-group"><label>Have you tried any SEO strategies in the past?</label><textarea name="seo_past_attempts" placeholder="What did you try, when, and how did it go? Include any agencies you worked with."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>GEO / AI visibility goals</label>
               <div class="radio-group">
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Yes — appear in AI answers"> Yes — appear in AI answers (ChatGPT, Perplexity, Google AI)</label>
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Not a priority"> Not a priority</label>
@@ -406,6 +410,11 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
               <div class="field-group"><label>Hosting provider</label><input type="text" name="seo_host" placeholder="e.g. GoDaddy, SiteGround, WP Engine"></div>
             </div>
             <div class="field-group one"><label>Additional access instructions</label><textarea name="seo_cms_notes" placeholder="Two-factor auth steps, staging vs live, dev access, FTP details, etc."></textarea></div>
+            <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;margin-top:.75rem;display:flex;gap:9px;align-items:flex-start">
+              <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
+              <div>Please add <strong>genesis@msp-camp.com</strong> to your WordPress as an Administrator.</div>
+            </div>
+            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_wp_admin_added"> I've added genesis@msp-camp.com as a WordPress Administrator</label>
           </div>
           <div class="access-box" style="margin-top:.75rem">
             <h5><i class="ti ti-brand-google"></i>Google account access</h5>
@@ -420,6 +429,22 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-grid one" style="margin-top:4px">
               <div class="field-group"><label>Instructions / notes for Google access sharing</label><textarea name="seo_google_notes" placeholder="Describe any access restrictions, multiple properties, tag manager, other tools connected (CallRail, Hotjar, etc.)…"></textarea></div>
             </div>
+            <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;margin-top:.75rem;display:flex;gap:9px;align-items:flex-start">
+              <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
+              <div>Please add <strong>mspcampseo@gmail.com</strong> to: Google Analytics (GA4), Google Search Console (GSC), Google Business Profile (GBP), and Google Tag Manager (GTM). If you don't have these set up, let us know and we'll help.</div>
+            </div>
+            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_gmail_added"> I've added mspcampseo@gmail.com to GA4, GSC, GBP & GTM</label>
+          </div>
+          <div class="access-box" style="margin-top:.75rem">
+            <h5><i class="ti ti-link"></i>Link building access</h5>
+            <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;display:flex;gap:9px;align-items:flex-start">
+              <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
+              <div>Please create a company email for our link builder, <strong>Janvier Hadlocon</strong>, in the form of <strong>janvier@[yourcompany].com</strong>, and provide the login credentials in the Monday task.</div>
+            </div>
+            <div class="field-grid" style="margin-top:.75rem">
+              <div class="field-group"><label>Link builder email created</label><input type="email" name="linkbuilder_email" placeholder="janvier@yourcompany.com"></div>
+              <div class="field-group"><label>Credentials location</label><input type="text" name="linkbuilder_creds_location" placeholder="e.g. provided in Monday task"></div>
+            </div>
           </div>
           <div class="check-grid" style="margin-top:.75rem">
             <label class="check-item"><input type="checkbox" name="seo_gsc"> Google Search Console access ready</label>
@@ -433,16 +458,27 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="divider"></div>
           <p class="section-title"><i class="ti ti-pencil"></i>Content & business information</p>
           <div class="panel-intro"><i class="ti ti-info-circle"></i>This section helps our content writers create accurate, compelling copy. Be as detailed as possible.</div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px">About the business</p>
           <div class="field-grid one">
             <div class="field-group"><label>Business description / about us <span class="req">*</span></label><textarea name="seo_about" style="min-height:110px" placeholder="Tell us about your business — founding story, what you do, what makes you different, your mission or values. Write this as you'd tell a new customer."></textarea></div>
           </div>
           <div class="field-grid">
-            <div class="field-group"><label>Primary services offered (detailed)</label><textarea name="seo_services_detail" placeholder="List and briefly describe each service you offer — include brands, equipment, or specializations (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
+            <div class="field-group"><label>Main niche or services to highlight</label><textarea name="seo_niche" placeholder="If you had to pick just a few things to be known for, what would they be?"></textarea></div>
+            <div class="field-group"><label>All services or products you directly provide or resell</label><textarea name="seo_services_detail" placeholder="List and briefly describe every service you offer — include brands, equipment, specializations, or resold/white-labeled products (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
+            <div class="field-group"><label>Company history</label><textarea name="seo_history" placeholder="What led to the company being founded? Include milestones, challenges overcome, and any fun stories — be as detailed as possible."></textarea></div>
+            <div class="field-group"><label>Mission statement & core values</label><textarea name="seo_mission_values" placeholder="What drives the business day-to-day, and what values guide how you operate?"></textarea></div>
             <div class="field-group"><label>Unique selling points / differentiators</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. 24/7 emergency service, licensed & insured, same-day guarantee, family-owned 20+ years, financing available)"></textarea></div>
-            <div class="field-group"><label>Target / ideal customer</label><textarea name="seo_target_customer" placeholder="Who is your best customer? (e.g. homeowners in 35–60 age range, commercial property managers, new construction builders, rental property owners)"></textarea></div>
+            <div class="field-group"><label>Target / ideal customer</label><textarea name="seo_target_customer" placeholder="Tell us about your ideal customer — demographics, age range, interests, what they love about you, and how they typically find you."></textarea></div>
             <div class="field-group"><label>Service area details</label><textarea name="seo_service_area_detail" placeholder="List all cities, counties, or ZIP codes you serve. Note if some areas are primary vs secondary markets."></textarea></div>
             <div class="field-group"><label>Credentials, licenses & awards</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Angi, manufacturer certifications, awards, years in business milestones, Google rating, etc."></textarea></div>
+            <div class="field-group"><label>Impressive stats to showcase</label><textarea name="seo_stats" placeholder="e.g. years in business, # of clients served, retention rate, CSAT score, jobs completed"></textarea></div>
             <div class="field-group"><label>Frequently asked customer questions</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become FAQ content and schema markup."></textarea></div>
+          </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Brand voice & messaging</p>
+          <div class="field-grid">
+            <div class="field-group"><label>Brand personality in three words</label><input type="text" name="seo_brand_personality" placeholder="e.g. bold, friendly, dependable"></div>
             <div class="field-group"><label>Brand voice / tone for content</label>
               <div class="radio-group" style="margin-top:6px">
                 <label class="radio-pill"><input type="radio" name="seo_voice" value="Professional & trustworthy"> Professional & trustworthy</label>
@@ -451,11 +487,17 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
                 <label class="radio-pill"><input type="radio" name="seo_voice" value="Educational & informative"> Educational & informative</label>
               </div>
             </div>
+            <div class="field-group"><label>Core taglines, phrases & messaging</label><textarea name="seo_taglines" placeholder="Any phrases, taglines, words, or messaging decisions you feel are core to your brand?"></textarea></div>
+            <div class="field-group"><label>Preferred point of view</label><input type="text" name="seo_pov" placeholder="e.g. first-person 'we', direct address 'you', formal vs casual"></div>
+            <div class="field-group"><label>Common customer pain points or objections</label><textarea name="seo_objections" placeholder="What hesitations or problems do customers usually have before hiring you? Helps writers address them directly."></textarea></div>
             <div class="field-group"><label>Topics / claims to avoid in content</label><textarea name="seo_avoid" placeholder="Anything to avoid — competitors to not mention, pricing not to publish, legal restrictions, services no longer offered, etc."></textarea></div>
           </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Content planning</p>
           <div class="field-grid one">
             <div class="field-group"><label>Existing content assets</label><textarea name="seo_existing_content" placeholder="Do you have existing blog posts, videos, brochures, before/after photos, case studies, or testimonials we can repurpose?"></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Content goals (pages / posts needed)</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for AC repair, HVAC installation, etc."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Content approval process</label><textarea name="seo_approval_process" placeholder="Who reviews and approves content before it's published? How should we send drafts?"></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Additional SEO / content notes</label><textarea name="seo_notes" placeholder="Past SEO work, penalties, technical issues, content calendar, anything else…"></textarea></div>
           </div>
         </div>
@@ -466,10 +508,11 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="field-grid">
             <div class="field-group"><label>Project type</label><select name="web_type"><option value="">Select…</option><option>Brand new website</option><option>Redesign existing site</option><option>Landing page(s) only</option><option>Add pages to existing site</option></select></div>
             <div class="field-group"><label>Current platform</label><select name="web_platform"><option value="">None / not sure</option><option>WordPress</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Webflow</option><option>Custom / other</option></select></div>
+            <div class="field-group"><label>Who created your current site?</label><input type="text" name="web_creator" placeholder="Agency, freelancer, in-house, or unknown"></div>
             <div class="field-group"><label>Pages needed</label><select name="web_pages"><option value="">Not sure</option><option>1–5</option><option>6–15</option><option>16–30</option><option>30+</option></select></div>
             <div class="field-group"><label>Launch timeline</label><select name="web_timeline"><option value="">Flexible</option><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>2–3 months</option><option>3+ months</option></select></div>
             <div class="field-group"><label>Budget range</label><select name="web_budget"><option value="">Select…</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></div>
-            <div class="field-group"><label>Inspiration sites</label><input type="text" name="web_inspiration" placeholder="URLs of sites you love"></div>
+            <div class="field-group"><label>Inspiration sites</label><input type="text" name="web_inspiration" placeholder="1-3 example URLs of sites you really like (doesn't have to be industry-specific)"></div>
           </div>
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px">Features needed</p>
           <div class="check-grid">
@@ -482,8 +525,26 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <label class="check-item"><input type="checkbox" name="web_ecomm"> E-commerce / payments</label>
             <label class="check-item"><input type="checkbox" name="web_multilang"> Multi-language support</label>
           </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Branding</p>
+          <div class="field-grid">
+            <div class="field-group"><label>Are you looking for a new logo?</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_new_logo" value="Yes"> Yes</label><label class="radio-pill"><input type="radio" name="web_new_logo" value="No"> No</label></div></div>
+            <div class="field-group"><label>Colors to include / avoid</label><input type="text" name="web_colors" placeholder="e.g. must include navy blue, avoid red"></div>
+            <div class="field-group"><label>Preferred font style</label><input type="text" name="web_font_style" placeholder="e.g. sleek, futuristic, classic, professional"></div>
+            <div class="field-group"><label>Brand assets on hand</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_brand" value="Full kit"> Full kit (logo, colors, fonts)</label><label class="radio-pill"><input type="radio" name="web_brand" value="Logo only"> Logo only</label><label class="radio-pill"><input type="radio" name="web_brand" value="Need branding"> Need branding help</label></div></div>
+            <div class="field-group"><label>Link to existing brand assets</label><input type="url" name="web_brand_link" placeholder="Google Drive / Dropbox link to logo files, style sheets, icons, imagery"></div>
+          </div>
+
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Site content & contact info</p>
+          <div class="field-grid">
+            <div class="field-group"><label>Associated sites / portals to link</label><input type="text" name="web_linked_sites" placeholder="Client portals, service pages, or other sites that should be linked from this site"></div>
+            <div class="field-group"><label>Lead notification email</label><input type="email" name="web_notify_email" placeholder="Where should new lead form submissions be sent?"></div>
+            <div class="field-group"><label>Phone number to display on site</label><input type="tel" name="web_display_phone" placeholder="(###) ###-####"></div>
+            <div class="field-group"><label>Display email (if different from notification email)</label><input type="email" name="web_display_email" placeholder="Leave blank if same as above"></div>
+            <div class="field-group"><label>Address to display on site</label><input type="text" name="web_display_address" placeholder="Street, City, State, ZIP"></div>
+          </div>
           <div class="field-grid one" style="margin-top:12px">
-            <div class="field-group"><label>Brand assets</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_brand" value="Full kit"> Full kit (logo, colors, fonts)</label><label class="radio-pill"><input type="radio" name="web_brand" value="Logo only"> Logo only</label><label class="radio-pill"><input type="radio" name="web_brand" value="Need branding"> Need branding help</label></div></div>
+            <div class="field-group"><label>Content plan for the site</label><textarea name="web_content_plan" placeholder="Do you have a plan for what content you want on your website? Tell us more."></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Website goal</label><textarea name="web_goal" placeholder="Generate leads, showcase work, take bookings, sell products…"></textarea></div>
           </div>
         </div>
@@ -879,7 +940,7 @@ function renderDetail(c){
 }
 
 function buildDetailHTML(c){
-  const svcs = (c.selected_services||'').split(',').map(s=>s.trim()).filter(Boolean);
+  const svcs = (c._selected_services||c.selected_services||'').split(',').map(s=>s.trim()).filter(Boolean);
   const hasService = s => svcs.some(sv=>sv.toLowerCase().includes(s));
 
   let html = `
@@ -916,11 +977,12 @@ function buildDetailHTML(c){
         ${row('Website',c.website_url)}
         ${row('Years in business',c.years_in_business)}
         ${row('Referral source',c.referral_source)}
+        ${row('CRM in use',c.crm)}
       </table>
     </div>
     <div class="info-card">
       <h4><i class="ti ti-list-check"></i>Services selected</h4>
-      <div style="margin-bottom:.75rem">${svcs.map(s=>`<span class="service-tag">${esc(s)}</span>`).join('') || '<span class="no-val">None recorded</span>'}</div>
+      <div style="margin-bottom:.75rem">${svcs.map(s=>`<span class="service-tag">${esc(SVC_CONFIG[s]?SVC_CONFIG[s].label:s)}</span>`).join('') || '<span class="no-val">None recorded</span>'}</div>
       ${c.client_notes?`<div class="section-divider"></div><p style="font-size:12px;font-weight:700;color:#888;text-transform:uppercase;margin-bottom:5px">Client notes</p><p style="font-size:13px;color:#333">${esc(c.client_notes)}</p>`:''}
     </div>
   </div>`;
@@ -932,9 +994,12 @@ function buildDetailHTML(c){
       <h4><i class="ti ti-search"></i>SEO / GEO — goals & targeting</h4>
       <table class="kv-table">
         ${row('Primary city',c.seo_city)}${row('Other cities',c.seo_other_cities)}
-        ${row('Services to rank for',c.seo_keywords)}${row('Competitors',c.seo_competitors)}
+        ${row('Services to rank for',c.seo_keywords)}${row('Target keywords / phrases',c.seo_target_phrases)}
+        ${row('Competitors',c.seo_competitors)}
         ${row('Monthly traffic',c.seo_traffic)}${row('Current ranking',c.seo_ranking)}
+        ${row('Founded',c.seo_founded_date)}
         ${row('GEO / AI goals',c.seo_geo)}
+        ${row('Past SEO attempts',c.seo_past_attempts)}
       </table>
     </div>
     </div>
@@ -965,8 +1030,12 @@ function buildDetailHTML(c){
         </div>
       </div>
       <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px">
-        ${[['seo_gsc','GSC ready'],['seo_ga4','GA4 ready'],['seo_gads','Google Ads access'],['seo_gtm','GTM access'],['seo_prev_agency','Prev. SEO agency'],['seo_penalty','Had penalty']].map(([k,label])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${label}</span>`:'').join('')}
+        ${[['seo_gsc','GSC ready'],['seo_ga4','GA4 ready'],['seo_gads','Google Ads access'],['seo_gtm','GTM access'],['seo_prev_agency','Prev. SEO agency'],['seo_penalty','Had penalty'],['seo_wp_admin_added','WP admin added'],['seo_gmail_added','Google access shared']].map(([k,label])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${label}</span>`:'').join('')}
       </div>
+      <table class="kv-table" style="margin-top:8px">
+        ${row('Link builder email',c.linkbuilder_email)}
+        ${row('Credentials location',c.linkbuilder_creds_location)}
+      </table>
     </div>
     </div>
 
@@ -975,16 +1044,25 @@ function buildDetailHTML(c){
       <h4><i class="ti ti-pencil"></i>SEO — content & business information</h4>
       <table class="kv-table">
         ${row('About the business',c.seo_about)}
+        ${row('Main niche / highlight',c.seo_niche)}
         ${row('Services (detailed)',c.seo_services_detail)}
+        ${row('Company history',c.seo_history)}
+        ${row('Mission & values',c.seo_mission_values)}
         ${row('Unique selling points',c.seo_usp)}
         ${row('Target customer',c.seo_target_customer)}
         ${row('Service area detail',c.seo_service_area_detail)}
         ${row('Credentials / licenses',c.seo_credentials)}
+        ${row('Impressive stats',c.seo_stats)}
         ${row('Customer FAQs',c.seo_faqs)}
+        ${row('Brand personality',c.seo_brand_personality)}
         ${row('Brand voice',c.seo_voice)}
+        ${row('Core taglines / messaging',c.seo_taglines)}
+        ${row('Preferred point of view',c.seo_pov)}
+        ${row('Customer pain points / objections',c.seo_objections)}
         ${row('Topics to avoid',c.seo_avoid)}
         ${row('Existing content assets',c.seo_existing_content)}
         ${row('Content goals',c.seo_content_goals)}
+        ${row('Content approval process',c.seo_approval_process)}
         ${row('Additional SEO notes',c.seo_notes)}
       </table>
     </div>
@@ -992,10 +1070,14 @@ function buildDetailHTML(c){
   }
 
   /* ── WEBSITE DESIGN ── */
-  if(hasService('website')){
+  if(hasService('web')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-device-laptop"></i>Website design</h4>
-    <table class="kv-table">${row('Project type',c.web_type)}${row('Platform',c.web_platform)}${row('Pages',c.web_pages)}${row('Timeline',c.web_timeline)}${row('Budget',c.web_budget)}${row('Inspiration sites',c.web_inspiration)}${row('Brand assets',c.web_brand)}${row('Website goal',c.web_goal)}</table>
+    <table class="kv-table">${row('Project type',c.web_type)}${row('Platform',c.web_platform)}${row('Site created by',c.web_creator)}${row('Pages',c.web_pages)}${row('Timeline',c.web_timeline)}${row('Budget',c.web_budget)}${row('Inspiration sites',c.web_inspiration)}</table>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['web_booking','Booking'],['web_forms','Quote forms'],['web_chat','Live chat'],['web_gallery','Gallery'],['web_blog','Blog'],['web_reviews','Reviews'],['web_ecomm','E-commerce'],['web_multilang','Multi-language']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Branding</p>
+    <table class="kv-table">${row('New logo needed',c.web_new_logo)}${row('Colors to include/avoid',c.web_colors)}${row('Preferred font style',c.web_font_style)}${row('Brand assets on hand',c.web_brand)}${row('Existing brand assets link',c.web_brand_link)}</table>
+    <p style="font-size:11px;font-weight:700;color:#339440;text-transform:uppercase;margin:12px 0 8px">Site content & contact info</p>
+    <table class="kv-table">${row('Associated sites/portals',c.web_linked_sites)}${row('Lead notification email',c.web_notify_email)}${row('Display phone',c.web_display_phone)}${row('Display email',c.web_display_email)}${row('Display address',c.web_display_address)}${row('Content plan',c.web_content_plan)}${row('Website goal',c.web_goal)}</table>
     </div></div>`;
   }
 
@@ -1008,7 +1090,7 @@ function buildDetailHTML(c){
   }
 
   /* ── LSA ── */
-  if(hasService('local service')){
+  if(hasService('lsa')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-shield-check"></i>Local service ads</h4>
     <table class="kv-table">${row('Legal name',c.lsa_legal)}${row('Category',c.lsa_category)}${row('Service ZIPs',c.lsa_zips)}${row('Monthly budget',c.lsa_budget)}${row('License #',c.lsa_license)}${row('Insurance carrier',c.lsa_insurance)}${row('Insurance expiry',c.lsa_ins_exp)}${row('Account status',c.lsa_status)}${row('Services to advertise',c.lsa_services)}</table>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['lsa_bg','BG check done'],['lsa_lic_docs','License docs ready'],['lsa_ins_cert','Insurance cert'],['lsa_guaranteed','Google Guaranteed']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
@@ -1016,7 +1098,7 @@ function buildDetailHTML(c){
   }
 
   /* ── GOOGLE ADS ── */
-  if(hasService('google ads')){
+  if(hasService('gads')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-ad"></i>Google Ads</h4>
     <table class="kv-table">${row('Monthly budget',c.gads_budget)}${row('Campaign goal',c.gads_goal)}${row('Existing account',c.gads_existing)}${row('Account ID',c.gads_id)}${row('Geographic target',c.gads_geo)}${row('Landing page',c.gads_landing)}${row('Revenue per customer',c.gads_revenue)}${row('Keywords',c.gads_keywords)}${row('Notes',c.gads_notes)}</table>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['gads_search','Search ads'],['gads_display','Display'],['gads_rsa','RSA'],['gads_call','Call-only'],['gads_retarget','Remarketing'],['gads_youtube','YouTube']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
