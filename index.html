@@ -373,86 +373,91 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
         <div class="service-panel" id="panel-seo">
           <div class="panel-intro"><i class="ti ti-info-circle"></i>Tell us about your search visibility goals, provide account access, and give us what we need to create great content.</div>
 
-          <p class="section-title"><i class="ti ti-target-arrow"></i>SEO goals & targeting</p>
+          <p class="section-title"><i class="ti ti-target-arrow"></i>Search visibility goals</p>
+          <p class="helper" style="margin:-6px 0 12px">SEO means "Search Engine Optimization" — helping your business show up when people search on Google.</p>
           <div class="field-grid">
-            <div class="field-group"><label>Primary service city <span class="req">*</span></label><input type="text" name="seo_city" placeholder="e.g. Tampa, FL"></div>
-            <div class="field-group"><label>Additional target cities</label><input type="text" name="seo_other_cities" placeholder="e.g. Sarasota, Bradenton…"></div>
-            <div class="field-group"><label>Top services to rank for</label><input type="text" name="seo_keywords" placeholder="e.g. AC repair, drain cleaning…"></div>
-            <div class="field-group"><label>Specific keywords or phrases to target</label><input type="text" name="seo_target_phrases" placeholder="e.g. emergency AC repair Tampa, best plumber near me"></div>
-            <div class="field-group"><label>Top competitors (names or URLs)</label><input type="text" name="seo_competitors" placeholder="Competitor names or websites"></div>
-            <div class="field-group"><label>Current monthly traffic (approx.)</label>
+            <div class="field-group"><label>What's the main city or area you want to be found in? <span class="req">*</span></label><input type="text" name="seo_city" placeholder="e.g. Tampa, FL"></div>
+            <div class="field-group"><label>Any other cities or areas to target?</label><input type="text" name="seo_other_cities" placeholder="e.g. Sarasota, Bradenton…"></div>
+            <div class="field-group"><label>What services do you want to be found for?</label><input type="text" name="seo_keywords" placeholder="e.g. AC repair, drain cleaning…"></div>
+            <div class="field-group"><label>Any exact phrases people might search for?</label><input type="text" name="seo_target_phrases" placeholder="e.g. emergency AC repair Tampa, best plumber near me"></div>
+            <div class="field-group"><label>Who are your top competitors?</label><input type="text" name="seo_competitors" placeholder="Competitor names or websites"></div>
+            <div class="field-group"><label>About how many visitors does your website get per month?</label>
               <select name="seo_traffic"><option value="">Unknown</option><option>0–100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select>
             </div>
-            <div class="field-group"><label>Current average ranking</label>
-              <select name="seo_ranking"><option value="">Don't know</option><option>Top 3</option><option>Page 1 (4–10)</option><option>Page 2</option><option>Page 3+</option><option>Not ranking</option></select>
+            <div class="field-group"><label>Where do you currently show up on Google?</label>
+              <select name="seo_ranking"><option value="">Don't know</option><option>Top 3</option><option>Page 1 (4–10)</option><option>Page 2</option><option>Page 3+</option><option>Not showing up yet</option></select>
             </div>
-            <div class="field-group"><label>Month and year founded</label><input type="text" name="seo_founded_date" placeholder="e.g. March 2015"><p class="helper">Used for off-page SEO</p></div>
+            <div class="field-group"><label>What month and year was your company founded?</label><input type="text" name="seo_founded_date" placeholder="e.g. March 2015"><p class="helper">Helps establish your business's history with Google</p></div>
           </div>
           <div class="field-grid one">
-            <div class="field-group"><label>Have you tried any SEO strategies in the past?</label><textarea name="seo_past_attempts" placeholder="What did you try, when, and how did it go? Include any agencies you worked with."></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>GEO / AI visibility goals</label>
+            <div class="field-group"><label>Have you tried any search-ranking strategies in the past?</label><textarea name="seo_past_attempts" placeholder="What did you try, when, and how did it go? Include any agencies you worked with."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Do you want to show up in AI answers?</label>
+              <p class="helper" style="margin-top:-2px">Like when someone asks ChatGPT or Google AI "who's the best plumber near me"</p>
               <div class="radio-group">
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Yes — appear in AI answers"> Yes — appear in AI answers (ChatGPT, Perplexity, Google AI)</label>
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Not a priority"> Not a priority</label>
-                <label class="radio-pill"><input type="radio" name="seo_geo" value="Need guidance"> Need guidance</label>
+                <label class="radio-pill"><input type="radio" name="seo_geo" value="Need guidance"> Not sure — need guidance</label>
               </div>
             </div>
           </div>
 
           <div class="divider"></div>
-          <p class="section-title"><i class="ti ti-key"></i>Website & account access</p>
+          <p class="section-title"><i class="ti ti-key"></i>Website & account logins</p>
           <div class="access-box">
-            <h5><i class="ti ti-world"></i>Website / CMS access</h5>
+            <h5><i class="ti ti-world"></i>Website login</h5>
             <div class="field-grid">
-              <div class="field-group"><label>CMS / Admin login URL</label><input type="url" name="seo_cms_url" placeholder="https://yoursite.com/wp-admin"></div>
-              <div class="field-group"><label>CMS username</label><input type="text" name="seo_cms_user" placeholder="Admin username" autocomplete="off"></div>
-              <div class="field-group"><label>CMS password</label><input type="password" name="seo_cms_pass" placeholder="Password" autocomplete="off"></div>
-              <div class="field-group"><label>Hosting provider</label><input type="text" name="seo_host" placeholder="e.g. GoDaddy, SiteGround, WP Engine"></div>
+              <div class="field-group"><label>Website admin login link</label><input type="url" name="seo_cms_url" placeholder="https://yoursite.com/wp-admin"><p class="helper">The web address where you (or your web person) log in to edit the site</p></div>
+              <div class="field-group"><label>Website admin username</label><input type="text" name="seo_cms_user" placeholder="Admin username" autocomplete="off"></div>
+              <div class="field-group"><label>Website admin password</label><input type="password" name="seo_cms_pass" placeholder="Password" autocomplete="off"></div>
+              <div class="field-group"><label>Who hosts your website?</label><input type="text" name="seo_host" placeholder="e.g. GoDaddy, SiteGround, WP Engine"></div>
             </div>
-            <div class="field-group one"><label>Additional access instructions</label><textarea name="seo_cms_notes" placeholder="Two-factor auth steps, staging vs live, dev access, FTP details, etc."></textarea></div>
+            <div class="field-group one"><label>Anything else we should know to log in?</label><textarea name="seo_cms_notes" placeholder="Two-factor login codes, a staging/test version vs. the live site, etc."></textarea></div>
             <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;margin-top:.75rem;display:flex;gap:9px;align-items:flex-start">
               <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
-              <div>Please add <strong>genesis@msp-camp.com</strong> to your WordPress as an Administrator.</div>
+              <div>Please add <strong>genesis@msp-camp.com</strong> as an Administrator on your website (if it's built on WordPress).</div>
             </div>
-            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_wp_admin_added"> I've added genesis@msp-camp.com as a WordPress Administrator</label>
+            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_wp_admin_added"> Done — I've added genesis@msp-camp.com as a website Administrator</label>
           </div>
           <div class="access-box" style="margin-top:.75rem">
             <h5><i class="ti ti-brand-google"></i>Google account access</h5>
+            <p class="helper" style="margin-top:-4px">These are free Google tools that show how your website and business are performing in search.</p>
             <div class="field-grid">
-              <div class="field-group"><label>Google account email used for GA4 / GSC</label><input type="email" name="seo_google_email" placeholder="google-account@gmail.com"><p class="helper">We'll request access from this account</p></div>
-              <div class="field-group"><label>GA4 property ID (if known)</label><input type="text" name="seo_ga4_id" placeholder="e.g. G-XXXXXXXXXX or 123456789"></div>
-              <div class="field-group"><label>Search Console already shared?</label>
+              <div class="field-group"><label>Which Google account email should we request access from?</label><input type="email" name="seo_google_email" placeholder="google-account@gmail.com"><p class="helper">We'll ask this account to share access with us</p></div>
+              <div class="field-group"><label>Google Analytics ID (if you know it)</label><input type="text" name="seo_ga4_id" placeholder="e.g. G-XXXXXXXXXX or 123456789"><p class="helper">Google Analytics (GA4) tracks visits to your website</p></div>
+              <div class="field-group"><label>Have you already shared Google Search Console with us?</label>
                 <select name="seo_gsc_shared"><option value="">Select…</option><option>Yes — already shared with MSP Camp</option><option>No — will share after this form</option><option>Need help setting it up</option><option>Don't have it set up</option></select>
+                <p class="helper">Search Console (GSC) shows how your site shows up in Google search results</p>
               </div>
-              <div class="field-group"><label>Google Ads account ID (if applicable)</label><input type="text" name="seo_gads_id" placeholder="###-###-####"></div>
+              <div class="field-group"><label>Google Ads account ID (if you run ads)</label><input type="text" name="seo_gads_id" placeholder="###-###-####"></div>
             </div>
             <div class="field-grid one" style="margin-top:4px">
-              <div class="field-group"><label>Instructions / notes for Google access sharing</label><textarea name="seo_google_notes" placeholder="Describe any access restrictions, multiple properties, tag manager, other tools connected (CallRail, Hotjar, etc.)…"></textarea></div>
+              <div class="field-group"><label>Anything else about your Google accounts we should know?</label><textarea name="seo_google_notes" placeholder="Access restrictions, multiple locations/properties, other tools connected (CallRail, Hotjar, etc.)…"></textarea></div>
             </div>
             <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;margin-top:.75rem;display:flex;gap:9px;align-items:flex-start">
               <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
-              <div>Please add <strong>mspcampseo@gmail.com</strong> to: Google Analytics (GA4), Google Search Console (GSC), Google Business Profile (GBP), and Google Tag Manager (GTM). If you don't have these set up, let us know and we'll help.</div>
+              <div>Please add <strong>mspcampseo@gmail.com</strong> to: Google Analytics, Google Search Console, Google Business Profile, and Google Tag Manager (a tool for tracking website activity). If you don't have these set up, let us know and we'll help.</div>
             </div>
-            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_gmail_added"> I've added mspcampseo@gmail.com to GA4, GSC, GBP & GTM</label>
+            <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="seo_gmail_added"> Done — I've added mspcampseo@gmail.com to my Google accounts</label>
           </div>
           <div class="access-box" style="margin-top:.75rem">
             <h5><i class="ti ti-link"></i>Link building access</h5>
+            <p class="helper" style="margin-top:-4px">Link building means getting other reputable websites to link to yours — it helps Google trust your site more.</p>
             <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;display:flex;gap:9px;align-items:flex-start">
               <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
-              <div>Please create a company email for our link builder, <strong>Janvier Hadlocon</strong>, in the form of <strong>janvier@[yourcompany].com</strong>, and provide the login credentials in the Monday task.</div>
+              <div>Please create an email address for our link building specialist, <strong>Janvier Hadlocon</strong>, in the form <strong>janvier@[yourcompany].com</strong>, and share the login details in the Monday task.</div>
             </div>
             <div class="field-grid" style="margin-top:.75rem">
-              <div class="field-group"><label>Link builder email created</label><input type="email" name="linkbuilder_email" placeholder="janvier@yourcompany.com"></div>
-              <div class="field-group"><label>Credentials location</label><input type="text" name="linkbuilder_creds_location" placeholder="e.g. provided in Monday task"></div>
+              <div class="field-group"><label>What email did you create?</label><input type="email" name="linkbuilder_email" placeholder="janvier@yourcompany.com"></div>
+              <div class="field-group"><label>Where did you share the login details?</label><input type="text" name="linkbuilder_creds_location" placeholder="e.g. provided in Monday task"></div>
             </div>
           </div>
           <div class="check-grid" style="margin-top:.75rem">
             <label class="check-item"><input type="checkbox" name="seo_gsc"> Google Search Console access ready</label>
-            <label class="check-item"><input type="checkbox" name="seo_ga4"> Google Analytics / GA4 ready</label>
-            <label class="check-item"><input type="checkbox" name="seo_gads"> Google Ads account access</label>
-            <label class="check-item"><input type="checkbox" name="seo_gtm"> Google Tag Manager access</label>
-            <label class="check-item"><input type="checkbox" name="seo_prev_agency"> Previously worked with SEO agency</label>
-            <label class="check-item"><input type="checkbox" name="seo_penalty"> Has had a Google penalty before</label>
+            <label class="check-item"><input type="checkbox" name="seo_ga4"> Google Analytics access ready</label>
+            <label class="check-item"><input type="checkbox" name="seo_gads"> Google Ads account access ready</label>
+            <label class="check-item"><input type="checkbox" name="seo_gtm"> Google Tag Manager access ready</label>
+            <label class="check-item"><input type="checkbox" name="seo_prev_agency"> Worked with an SEO company before</label>
+            <label class="check-item"><input type="checkbox" name="seo_penalty"> Google has ever penalized this site</label>
           </div>
 
           <div class="divider"></div>
@@ -464,22 +469,22 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>Business description / about us <span class="req">*</span></label><textarea name="seo_about" style="min-height:110px" placeholder="Tell us about your business — founding story, what you do, what makes you different, your mission or values. Write this as you'd tell a new customer."></textarea></div>
           </div>
           <div class="field-grid">
-            <div class="field-group"><label>Main niche or services to highlight</label><textarea name="seo_niche" placeholder="If you had to pick just a few things to be known for, what would they be?"></textarea></div>
-            <div class="field-group"><label>All services or products you directly provide or resell</label><textarea name="seo_services_detail" placeholder="List and briefly describe every service you offer — include brands, equipment, specializations, or resold/white-labeled products (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
-            <div class="field-group"><label>Company history</label><textarea name="seo_history" placeholder="What led to the company being founded? Include milestones, challenges overcome, and any fun stories — be as detailed as possible."></textarea></div>
-            <div class="field-group"><label>Mission statement & core values</label><textarea name="seo_mission_values" placeholder="What drives the business day-to-day, and what values guide how you operate?"></textarea></div>
-            <div class="field-group"><label>Unique selling points / differentiators</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. 24/7 emergency service, licensed & insured, same-day guarantee, family-owned 20+ years, financing available)"></textarea></div>
-            <div class="field-group"><label>Target / ideal customer</label><textarea name="seo_target_customer" placeholder="Tell us about your ideal customer — demographics, age range, interests, what they love about you, and how they typically find you."></textarea></div>
-            <div class="field-group"><label>Service area details</label><textarea name="seo_service_area_detail" placeholder="List all cities, counties, or ZIP codes you serve. Note if some areas are primary vs secondary markets."></textarea></div>
-            <div class="field-group"><label>Credentials, licenses & awards</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Angi, manufacturer certifications, industry awards, etc."></textarea></div>
-            <div class="field-group"><label>Impressive stats to showcase</label><textarea name="seo_stats" placeholder="e.g. years in business, # of clients served, retention rate, CSAT score, jobs completed"></textarea></div>
-            <div class="field-group"><label>Frequently asked customer questions</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become FAQ content and schema markup."></textarea></div>
+            <div class="field-group"><label>What's your niche, if any? Main things you want to be known for?</label><textarea name="seo_niche" placeholder="If you had to pick just a few things to be known for, what would they be?"></textarea></div>
+            <div class="field-group"><label>What are ALL the services or products you offer (including anything you resell)?</label><textarea name="seo_services_detail" placeholder="List and briefly describe every service you offer — include brands, equipment, specializations, or resold/white-labeled products (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
+            <div class="field-group"><label>What's the history of your company?</label><textarea name="seo_history" placeholder="What led to the company being founded? Include milestones, challenges overcome, and any fun stories — be as detailed as possible."></textarea></div>
+            <div class="field-group"><label>What's your mission statement and core values?</label><textarea name="seo_mission_values" placeholder="What drives the business day-to-day, and what values guide how you operate?"></textarea></div>
+            <div class="field-group"><label>What makes you different from competitors?</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. 24/7 emergency service, licensed & insured, same-day guarantee, family-owned 20+ years, financing available)"></textarea></div>
+            <div class="field-group"><label>Who is your target market?</label><textarea name="seo_target_customer" placeholder="Tell us about your ideal customer — demographics, age range, interests, what they love about you, and how they typically find you."></textarea></div>
+            <div class="field-group"><label>What areas or cities do you serve?</label><textarea name="seo_service_area_detail" placeholder="List all cities, counties, or ZIP codes you serve. Note if some areas are primary vs secondary markets."></textarea></div>
+            <div class="field-group"><label>Any licenses, certifications, or awards?</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Angi, manufacturer certifications, industry awards, etc."></textarea></div>
+            <div class="field-group"><label>Any impressive numbers you'd like to showcase?</label><textarea name="seo_stats" placeholder="e.g. years in business, # of clients served, retention rate, customer satisfaction score, jobs completed"></textarea></div>
+            <div class="field-group"><label>What questions do customers ask you most often?</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become helpful FAQ content on your site."></textarea></div>
           </div>
 
-          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Brand voice & messaging</p>
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Brand personality</p>
           <div class="field-grid">
-            <div class="field-group"><label>Brand personality in three words</label><input type="text" name="seo_brand_personality" placeholder="e.g. bold, friendly, dependable"></div>
-            <div class="field-group"><label>Brand voice / tone for content</label>
+            <div class="field-group"><label>In three words, how would you describe your brand's personality?</label><input type="text" name="seo_brand_personality" placeholder="e.g. bold, friendly, dependable"></div>
+            <div class="field-group"><label>What tone of voice do you want in your writing?</label>
               <div class="radio-group" style="margin-top:6px">
                 <label class="radio-pill"><input type="radio" name="seo_voice" value="Professional & trustworthy"> Professional & trustworthy</label>
                 <label class="radio-pill"><input type="radio" name="seo_voice" value="Friendly & conversational"> Friendly & conversational</label>
@@ -487,18 +492,18 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
                 <label class="radio-pill"><input type="radio" name="seo_voice" value="Educational & informative"> Educational & informative</label>
               </div>
             </div>
-            <div class="field-group"><label>Core taglines, phrases & messaging</label><textarea name="seo_taglines" placeholder="Any phrases, taglines, words, or messaging decisions you feel are core to your brand?"></textarea></div>
-            <div class="field-group"><label>Preferred point of view</label><input type="text" name="seo_pov" placeholder="e.g. first-person 'we', direct address 'you', formal vs casual"></div>
-            <div class="field-group"><label>Common customer pain points or objections</label><textarea name="seo_objections" placeholder="What hesitations or problems do customers usually have before hiring you? Helps writers address them directly."></textarea></div>
-            <div class="field-group"><label>Topics / claims to avoid in content</label><textarea name="seo_avoid" placeholder="Anything to avoid — competitors to not mention, pricing not to publish, legal restrictions, services no longer offered, etc."></textarea></div>
+            <div class="field-group"><label>Any phrases or taglines that are core to your brand?</label><textarea name="seo_taglines" placeholder="Any phrases, taglines, words, or messaging decisions you feel are core to your brand?"></textarea></div>
+            <div class="field-group"><label>Should we write as "we" or talk directly to the reader as "you"?</label><input type="text" name="seo_pov" placeholder="e.g. first-person 'we', direct address 'you', formal vs casual"></div>
+            <div class="field-group"><label>What hesitations do customers usually have before hiring you?</label><textarea name="seo_objections" placeholder="What hesitations or problems do customers usually have before hiring you? Helps writers address them directly."></textarea></div>
+            <div class="field-group"><label>Anything we should avoid saying?</label><textarea name="seo_avoid" placeholder="Anything to avoid — competitors to not mention, pricing not to publish, legal restrictions, services no longer offered, etc."></textarea></div>
           </div>
 
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Content planning</p>
           <div class="field-grid one">
-            <div class="field-group"><label>Existing content assets</label><textarea name="seo_existing_content" placeholder="Do you have existing blog posts, videos, brochures, before/after photos, case studies, or testimonials we can repurpose?"></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>Content goals (pages / posts needed)</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for AC repair, HVAC installation, etc."></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>Content approval process</label><textarea name="seo_approval_process" placeholder="Who reviews and approves content before it's published? How should we send drafts?"></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>Additional SEO / content notes</label><textarea name="seo_notes" placeholder="Past SEO work, penalties, technical issues, content calendar, anything else…"></textarea></div>
+            <div class="field-group"><label>Do you have existing photos, videos, or write-ups we can reuse?</label><textarea name="seo_existing_content" placeholder="Do you have existing blog posts, videos, brochures, before/after photos, case studies, or testimonials we can repurpose?"></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>What pages or posts would you like us to create?</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for AC repair, HVAC installation, etc."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Who should review and approve content before it goes live?</label><textarea name="seo_approval_process" placeholder="Who reviews and approves content before it's published? How should we send drafts?"></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Anything else about your search rankings or content?</label><textarea name="seo_notes" placeholder="Past SEO work, penalties, technical issues, content calendar, anything else…"></textarea></div>
           </div>
         </div>
 
@@ -506,21 +511,22 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
         <div class="service-panel" id="panel-web">
           <div class="panel-intro"><i class="ti ti-info-circle"></i>Help us understand your website project — new build, redesign, or landing pages.</div>
           <div class="field-grid">
-            <div class="field-group"><label>Project type</label><select name="web_type"><option value="">Select…</option><option>Brand new website</option><option>Redesign existing site</option><option>Landing page(s) only</option><option>Add pages to existing site</option></select></div>
-            <div class="field-group"><label>Current platform</label><select name="web_platform"><option value="">None / not sure</option><option>WordPress</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Webflow</option><option>Custom / other</option></select></div>
+            <div class="field-group"><label>What kind of website project is this?</label><select name="web_type"><option value="">Select…</option><option>Brand new website</option><option>Redesign existing site</option><option>Landing page(s) only</option><option>Add pages to existing site</option></select></div>
+            <div class="field-group"><label>What platform is your current website built on?</label><select name="web_platform"><option value="">None / not sure</option><option>WordPress</option><option>Wix</option><option>Squarespace</option><option>Shopify</option><option>Webflow</option><option>Custom / other</option></select></div>
             <div class="field-group"><label>Who created your current site?</label><input type="text" name="web_creator" placeholder="Agency, freelancer, in-house, or unknown"></div>
             <div class="field-group"><label>What's not working about your current site?</label><textarea name="web_current_issues" placeholder="Pain points, frustrations, or things you want to avoid repeating in the new site"></textarea></div>
-            <div class="field-group"><label>Pages needed</label><select name="web_pages"><option value="">Not sure</option><option>1–5</option><option>6–15</option><option>16–30</option><option>30+</option></select></div>
-            <div class="field-group"><label>Launch timeline</label><select name="web_timeline"><option value="">Flexible</option><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>2–3 months</option><option>3+ months</option></select></div>
-            <div class="field-group"><label>Budget range</label><select name="web_budget"><option value="">Select…</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></div>
-            <div class="field-group"><label>Inspiration sites</label><input type="text" name="web_inspiration" placeholder="1-3 example URLs of sites you really like (doesn't have to be industry-specific)"></div>
+            <div class="field-group"><label>About how many pages do you need?</label><select name="web_pages"><option value="">Not sure</option><option>1–5</option><option>6–15</option><option>16–30</option><option>30+</option></select></div>
+            <div class="field-group"><label>When do you want it launched?</label><select name="web_timeline"><option value="">Flexible</option><option>ASAP</option><option>2–4 weeks</option><option>1–2 months</option><option>2–3 months</option><option>3+ months</option></select></div>
+            <div class="field-group"><label>What's your budget range?</label><select name="web_budget"><option value="">Select…</option><option>Under $1,500</option><option>$1,500–$3,000</option><option>$3,000–$6,000</option><option>$6,000–$12,000</option><option>$12,000+</option></select></div>
+            <div class="field-group"><label>Do you have 1-3 examples of websites you really like?</label><input type="text" name="web_inspiration" placeholder="1-3 example URLs of sites you really like (doesn't have to be industry-specific)"></div>
           </div>
 
-          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Domain & hosting</p>
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Domain name</p>
+          <p class="helper" style="margin-top:-6px">Your domain is your web address, like "yourbusiness.com"</p>
           <div class="field-grid">
-            <div class="field-group"><label>Domain name</label><input type="text" name="web_domain" placeholder="e.g. yourbusiness.com — leave blank if not registered yet"></div>
-            <div class="field-group"><label>Domain registrar</label><input type="text" name="web_domain_registrar" placeholder="e.g. GoDaddy, Namecheap, Cloudflare, Google Domains"></div>
-            <div class="field-group"><label>Who can update DNS / domain access</label><textarea name="web_domain_access" placeholder="Who holds the login for the domain registrar? Can they make DNS changes, or do we need to request access?"></textarea></div>
+            <div class="field-group"><label>What's your domain name?</label><input type="text" name="web_domain" placeholder="e.g. yourbusiness.com — leave blank if not registered yet"></div>
+            <div class="field-group"><label>Where is it registered?</label><input type="text" name="web_domain_registrar" placeholder="e.g. GoDaddy, Namecheap, Cloudflare, Google Domains"></div>
+            <div class="field-group"><label>Who can make changes to it, or log in to that account?</label><textarea name="web_domain_access" placeholder="Who holds the login for the domain registrar? Can they make changes, or do we need to request access?"></textarea></div>
           </div>
 
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Features needed</p>
@@ -543,109 +549,120 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <label class="check-item"><input type="checkbox" name="web_legal_cookies"> Cookie consent banner</label>
           </div>
           <div class="field-grid one">
-            <div class="field-group"><label>Legal page notes</label><textarea name="web_legal_notes" placeholder="Existing legal copy to reuse, industry-specific disclaimers, licensing language required by state/local law, etc."></textarea></div>
+            <div class="field-group"><label>Anything else about these legal pages?</label><textarea name="web_legal_notes" placeholder="Existing legal copy to reuse, industry-specific disclaimers, licensing language required by state/local law, etc."></textarea></div>
           </div>
 
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Branding</p>
           <div class="field-grid">
-            <div class="field-group"><label>Are you looking for a new logo?</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_new_logo" value="Yes"> Yes</label><label class="radio-pill"><input type="radio" name="web_new_logo" value="No"> No</label></div></div>
-            <div class="field-group"><label>Colors to include / avoid</label><input type="text" name="web_colors" placeholder="e.g. must include navy blue, avoid red"></div>
-            <div class="field-group"><label>Preferred font style</label><input type="text" name="web_font_style" placeholder="e.g. sleek, futuristic, classic, professional"></div>
-            <div class="field-group"><label>Brand assets on hand</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_brand" value="Full kit"> Full kit (logo, colors, fonts)</label><label class="radio-pill"><input type="radio" name="web_brand" value="Logo only"> Logo only</label><label class="radio-pill"><input type="radio" name="web_brand" value="Need branding"> Need branding help</label></div></div>
-            <div class="field-group"><label>Link to existing brand assets</label><input type="url" name="web_brand_link" placeholder="Google Drive / Dropbox link to logo files, style sheets, icons, imagery"></div>
+            <div class="field-group"><label>Are you looking for us to create a new logo for you?</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_new_logo" value="Yes"> Yes</label><label class="radio-pill"><input type="radio" name="web_new_logo" value="No"> No</label></div></div>
+            <div class="field-group"><label>Any colors you want to specifically include or avoid?</label><input type="text" name="web_colors" placeholder="e.g. must include navy blue, avoid red"></div>
+            <div class="field-group"><label>What style of font would you prefer?</label><input type="text" name="web_font_style" placeholder="e.g. sleek, futuristic, classic, professional"></div>
+            <div class="field-group"><label>What brand materials do you already have?</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="web_brand" value="Full kit"> Full kit (logo, colors, fonts)</label><label class="radio-pill"><input type="radio" name="web_brand" value="Logo only"> Logo only</label><label class="radio-pill"><input type="radio" name="web_brand" value="Need branding"> Need branding help</label></div></div>
+            <div class="field-group"><label>Do you have existing logo files, colors, or images to send us?</label><input type="url" name="web_brand_link" placeholder="Google Drive / Dropbox link to logo files, style sheets, icons, imagery"><p class="helper">Paste a link to a shared folder — we can't accept file uploads directly on this form</p></div>
           </div>
 
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Site content & contact info</p>
           <div class="field-grid">
-            <div class="field-group"><label>Associated sites / portals to link</label><input type="text" name="web_linked_sites" placeholder="Client portals, service pages, or other sites that should be linked from this site"></div>
-            <div class="field-group"><label>Lead notification email</label><input type="email" name="web_notify_email" placeholder="Where should new lead form submissions be sent?"></div>
-            <div class="field-group"><label>Phone number to display on site</label><input type="tel" name="web_display_phone" placeholder="(###) ###-####"></div>
-            <div class="field-group"><label>Display email (if different from notification email)</label><input type="email" name="web_display_email" placeholder="Leave blank if same as above"></div>
-            <div class="field-group"><label>Address to display on site</label><input type="text" name="web_display_address" placeholder="Street, City, State, ZIP"></div>
+            <div class="field-group"><label>Any other websites or pages that should link to this site?</label><input type="text" name="web_linked_sites" placeholder="Client portals, service pages, or other sites that should be linked from this site"></div>
+            <div class="field-group"><label>Where should we send you new lead notifications?</label><input type="email" name="web_notify_email" placeholder="Where should new lead form submissions be sent?"></div>
+            <div class="field-group"><label>What phone number should show on the site?</label><input type="tel" name="web_display_phone" placeholder="(###) ###-####"></div>
+            <div class="field-group"><label>What email should show on the site (if different from above)?</label><input type="email" name="web_display_email" placeholder="Leave blank if same as above"></div>
+            <div class="field-group"><label>What address should show on the site?</label><input type="text" name="web_display_address" placeholder="Street, City, State, ZIP"></div>
           </div>
           <div class="field-grid one" style="margin-top:12px">
-            <div class="field-group"><label>Content plan for the site</label><textarea name="web_content_plan" placeholder="Do you have a plan for what content you want on your website? Tell us more."></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>Website goal</label><textarea name="web_goal" placeholder="Generate leads, showcase work, take bookings, sell products…"></textarea></div>
+            <div class="field-group"><label>Do you have a plan for what content you want on your website?</label><textarea name="web_content_plan" placeholder="Tell us more — what pages, what topics, anything specific you want covered."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>What's the main goal of the website?</label><textarea name="web_goal" placeholder="Generate leads, showcase work, take bookings, sell products…"></textarea></div>
           </div>
         </div>
 
         <!-- ══ GBP ══ -->
         <div class="service-panel" id="panel-gbp">
-          <div class="panel-intro"><i class="ti ti-info-circle"></i>We'll optimize your Google Business Profile to dominate the local map pack.</div>
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Your Google Business Profile (GBP) is your free business listing that shows up on Google Maps and in local search results. We'll optimize it to get you found.</div>
           <div class="field-grid">
-            <div class="field-group"><label>Business name (exact)</label><input type="text" name="gbp_name" placeholder="As it appears on Google"></div>
-            <div class="field-group"><label>Business phone</label><input type="tel" name="gbp_phone" placeholder="(###) ###-####"></div>
-            <div class="field-group"><label>GBP status</label><select name="gbp_status"><option value="">Select…</option><option>Verified & active</option><option>Claimed, not verified</option><option>Not claimed</option><option>Suspended</option><option>Don't have one</option></select></div>
-            <div class="field-group"><label>Primary category</label><input type="text" name="gbp_category" placeholder="e.g. Plumber, HVAC Contractor…"></div>
-            <div class="field-group"><label>Service area / ZIP codes</label><input type="text" name="gbp_area" placeholder="Cities or radius"></div>
-            <div class="field-group"><label>Review count</label><select name="gbp_reviews"><option value="">Not sure</option><option>0</option><option>1–10</option><option>11–50</option><option>51–100</option><option>100+</option></select></div>
-            <div class="field-group"><label>Avg. star rating</label><select name="gbp_rating"><option value="">Don't know</option><option>5.0</option><option>4.5–4.9</option><option>4.0–4.4</option><option>3.5–3.9</option><option>Under 3.5</option></select></div>
-            <div class="field-group"><label>GBP access</label><select name="gbp_access"><option value="">Select…</option><option>Yes — I'm the owner</option><option>Yes — I'm a manager</option><option>No access</option><option>With previous agency</option></select></div>
+            <div class="field-group"><label>Exact business name as it appears on Google</label><input type="text" name="gbp_name" placeholder="As it appears on Google"></div>
+            <div class="field-group"><label>Business phone number</label><input type="tel" name="gbp_phone" placeholder="(###) ###-####"></div>
+            <div class="field-group"><label>Do you already have a Google Business Profile?</label><select name="gbp_status"><option value="">Select…</option><option>Verified & active</option><option>Claimed, not verified</option><option>Not claimed</option><option>Suspended</option><option>Don't have one</option></select></div>
+            <div class="field-group"><label>What category is your business listed under?</label><input type="text" name="gbp_category" placeholder="e.g. Plumber, HVAC Contractor…"></div>
+            <div class="field-group"><label>What areas or ZIP codes do you serve?</label><input type="text" name="gbp_area" placeholder="Cities or radius"></div>
+            <div class="field-group"><label>About how many reviews do you have?</label><select name="gbp_reviews"><option value="">Not sure</option><option>0</option><option>1–10</option><option>11–50</option><option>51–100</option><option>100+</option></select></div>
+            <div class="field-group"><label>What's your average star rating?</label><select name="gbp_rating"><option value="">Don't know</option><option>5.0</option><option>4.5–4.9</option><option>4.0–4.4</option><option>3.5–3.9</option><option>Under 3.5</option></select></div>
+            <div class="field-group"><label>Do you currently have login access to it?</label><select name="gbp_access"><option value="">Select…</option><option>Yes — I'm the owner</option><option>Yes — I'm a manager</option><option>No access</option><option>With previous agency</option></select></div>
           </div>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="gbp_photos"> Photos available</label>
-            <label class="check-item"><input type="checkbox" name="gbp_services_list"> Services list ready</label>
-            <label class="check-item"><input type="checkbox" name="gbp_qa"> Q&A needs setup</label>
-            <label class="check-item"><input type="checkbox" name="gbp_review_strat"> Need review strategy</label>
-            <label class="check-item"><input type="checkbox" name="gbp_posts"> Posts / offers wanted</label>
-            <label class="check-item"><input type="checkbox" name="gbp_booking"> Booking link needed</label>
+            <label class="check-item"><input type="checkbox" name="gbp_photos"> I have photos available to use</label>
+            <label class="check-item"><input type="checkbox" name="gbp_services_list"> I have a list of services ready</label>
+            <label class="check-item"><input type="checkbox" name="gbp_qa"> The Q&A section needs to be set up</label>
+            <label class="check-item"><input type="checkbox" name="gbp_review_strat"> I need help getting more reviews</label>
+            <label class="check-item"><input type="checkbox" name="gbp_posts"> I'd like regular posts/offers published</label>
+            <label class="check-item"><input type="checkbox" name="gbp_booking"> I need a booking link added</label>
           </div>
-          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>GBP issues / suspensions</label><textarea name="gbp_issues" placeholder="Duplicate listings, address changes, policy violations…"></textarea></div></div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Any issues or suspensions with your listing?</label><textarea name="gbp_issues" placeholder="Duplicate listings, address changes, policy violations…"></textarea></div></div>
         </div>
 
         <!-- ══ LSA ══ -->
         <div class="service-panel" id="panel-lsa">
-          <div class="panel-intro"><i class="ti ti-info-circle"></i>Local Service Ads — pay-per-lead at the top of Google. We handle verification and management.</div>
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Local Service Ads (LSA) put you at the very top of Google, above regular ads, with a "Google Guaranteed" badge — and you only pay when someone contacts you. We handle the setup and verification.</div>
           <div class="field-grid">
             <div class="field-group"><label>Legal business name</label><input type="text" name="lsa_legal" placeholder="As registered with state"></div>
-            <div class="field-group"><label>Business category</label><select name="lsa_category"><option value="">Select…</option><option>Plumbing</option><option>HVAC</option><option>Electrical</option><option>Roofing</option><option>Landscaping</option><option>Locksmith</option><option>Pest control</option><option>Cleaning</option><option>General contractor</option><option>Other</option></select></div>
-            <div class="field-group"><label>Service ZIP codes</label><input type="text" name="lsa_zips" placeholder="ZIP codes or cities"></div>
-            <div class="field-group"><label>Monthly lead budget</label><select name="lsa_budget"><option value="">Select…</option><option>$500–$1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000+</option></select></div>
+            <div class="field-group"><label>What category of business are you?</label><select name="lsa_category"><option value="">Select…</option><option>Plumbing</option><option>HVAC</option><option>Electrical</option><option>Roofing</option><option>Landscaping</option><option>Locksmith</option><option>Pest control</option><option>Cleaning</option><option>General contractor</option><option>Other</option></select></div>
+            <div class="field-group"><label>What ZIP codes or cities should we target?</label><input type="text" name="lsa_zips" placeholder="ZIP codes or cities"></div>
+            <div class="field-group"><label>How much do you want to spend per month?</label><select name="lsa_budget"><option value="">Select…</option><option>$500–$1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000+</option></select></div>
             <div class="field-group"><label>License number</label><input type="text" name="lsa_license" placeholder="State contractor license #"></div>
-            <div class="field-group"><label>Insurance carrier</label><input type="text" name="lsa_insurance" placeholder="Insurance company name"></div>
-            <div class="field-group"><label>Insurance expiry</label><input type="date" name="lsa_ins_exp"></div>
-            <div class="field-group"><label>LSA account status</label><select name="lsa_status"><option value="">Select…</option><option>No account yet</option><option>Active</option><option>Paused</option><option>Previously rejected</option></select></div>
+            <div class="field-group"><label>Insurance company name</label><input type="text" name="lsa_insurance" placeholder="Insurance company name"></div>
+            <div class="field-group"><label>When does your insurance expire?</label><input type="date" name="lsa_ins_exp"></div>
+            <div class="field-group"><label>Do you already have an account set up?</label><select name="lsa_status"><option value="">Select…</option><option>No account yet</option><option>Active</option><option>Paused</option><option>Previously rejected</option></select></div>
           </div>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="lsa_bg"> Background check done</label>
-            <label class="check-item"><input type="checkbox" name="lsa_lic_docs"> License docs ready</label>
-            <label class="check-item"><input type="checkbox" name="lsa_ins_cert"> Insurance cert available</label>
-            <label class="check-item"><input type="checkbox" name="lsa_guaranteed"> Google Guaranteed desired</label>
+            <label class="check-item"><input type="checkbox" name="lsa_bg"> Background check already done</label>
+            <label class="check-item"><input type="checkbox" name="lsa_lic_docs"> License documents ready to send</label>
+            <label class="check-item"><input type="checkbox" name="lsa_ins_cert"> Insurance certificate available</label>
+            <label class="check-item"><input type="checkbox" name="lsa_guaranteed"> Want the "Google Guaranteed" badge</label>
           </div>
-          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Services to advertise</label><textarea name="lsa_services" placeholder="Exact services / job types you want LSA leads for"></textarea></div></div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Which exact services do you want leads for?</label><textarea name="lsa_services" placeholder="Exact services / job types you want leads for"></textarea></div></div>
         </div>
 
         <!-- ══ GOOGLE ADS ══ -->
         <div class="service-panel" id="panel-gads">
-          <div class="panel-intro"><i class="ti ti-info-circle"></i>We'll build and manage high-converting Google Ads campaigns.</div>
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>Paid Search means paying to show up at the top of Google when people search — you only pay when someone clicks. We'll build and manage these campaigns for you.</div>
           <div class="field-grid">
-            <div class="field-group"><label>Monthly ad budget</label><select name="gads_budget"><option value="">Select…</option><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500–$15,000</option><option>$15,000+</option></select></div>
-            <div class="field-group"><label>Campaign goal</label><select name="gads_goal"><option value="">Select…</option><option>Phone calls</option><option>Form submissions</option><option>Website traffic</option><option>Brand awareness</option><option>E-commerce sales</option><option>Multiple goals</option></select></div>
-            <div class="field-group"><label>Existing Google Ads account?</label><select name="gads_existing"><option value="">Select…</option><option>Yes</option><option>No — new needed</option><option>Had one before</option></select></div>
-            <div class="field-group"><label>Google Ads account ID</label><input type="text" name="gads_id" placeholder="###-###-####"></div>
-            <div class="field-group"><label>Geographic target</label><input type="text" name="gads_geo" placeholder="City, state, radius, ZIP codes"></div>
-            <div class="field-group"><label>Landing page</label><select name="gads_landing"><option value="">Select…</option><option>Existing site page</option><option>Need new landing page</option><option>Multiple pages</option></select></div>
-            <div class="field-group"><label>Revenue per new customer</label><select name="gads_revenue"><option value="">Prefer not to say</option><option>Under $200</option><option>$200–$500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
-            <div class="field-group"><label>Keywords to target</label><input type="text" name="gads_keywords" placeholder="e.g. emergency plumber, AC replacement…"></div>
+            <div class="field-group"><label>What's your monthly ad budget?</label><select name="gads_budget"><option value="">Select…</option><option>Under $500</option><option>$500–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500–$15,000</option><option>$15,000+</option></select></div>
+            <div class="field-group"><label>What do you want the ads to do?</label><select name="gads_goal"><option value="">Select…</option><option>Phone calls</option><option>Form submissions</option><option>Website traffic</option><option>Brand awareness</option><option>E-commerce sales</option><option>Multiple goals</option></select></div>
+            <div class="field-group"><label>Are you currently running Google Ads?</label><select name="gads_existing"><option value="">Select…</option><option>Yes</option><option>No — new needed</option><option>Had one before</option></select></div>
+            <div class="field-group"><label>Have you gotten leads or sales from them?</label><textarea name="gads_results" placeholder="If you're currently running ads, how have they performed?"></textarea></div>
+            <div class="field-group"><label>Google Ads account ID (if you have one)</label><input type="text" name="gads_id" placeholder="###-###-####"></div>
+            <div class="field-group"><label>What areas do you want your ads to target?</label><input type="text" name="gads_geo" placeholder="City, state, radius, ZIP codes"></div>
+            <div class="field-group"><label>Where should ad clicks land?</label><select name="gads_landing"><option value="">Select…</option><option>Existing site page</option><option>Need new landing page</option><option>Multiple pages</option></select></div>
+            <div class="field-group"><label>About how much revenue does a new customer bring you?</label><select name="gads_revenue"><option value="">Prefer not to say</option><option>Under $200</option><option>$200–$500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
+            <div class="field-group"><label>Any specific keywords you'd like us to include?</label><input type="text" name="gads_keywords" placeholder="e.g. emergency plumber, AC replacement…"></div>
+            <div class="field-group"><label>Which services should we feature in the ads?</label><input type="text" name="gads_featured_services" placeholder="Which services should get top billing in ad copy?"></div>
+            <div class="field-group"><label>What are your hours of operation?</label><input type="text" name="gads_hours" placeholder="Include time zone, e.g. Mon-Fri 8am-6pm EST"></div>
+            <div class="field-group"><label>Want a different phone number or email just for these ads?</label><input type="text" name="gads_alt_contact" placeholder="Leave blank to use what's on your site"></div>
           </div>
+          <p class="helper" style="margin-bottom:9px">Types of ads we can run — check any you'd like:</p>
           <div class="check-grid">
-            <label class="check-item"><input type="checkbox" name="gads_search"> Search ads</label>
-            <label class="check-item"><input type="checkbox" name="gads_display"> Display / banner</label>
-            <label class="check-item"><input type="checkbox" name="gads_rsa"> Responsive search ads</label>
-            <label class="check-item"><input type="checkbox" name="gads_call"> Call-only ads</label>
-            <label class="check-item"><input type="checkbox" name="gads_retarget"> Remarketing</label>
-            <label class="check-item"><input type="checkbox" name="gads_youtube"> YouTube / video</label>
+            <label class="check-item"><input type="checkbox" name="gads_search"> Search ads (text ads in Google search results)</label>
+            <label class="check-item"><input type="checkbox" name="gads_display"> Display / banner ads (image ads on other websites)</label>
+            <label class="check-item"><input type="checkbox" name="gads_rsa"> Responsive search ads (auto-adjusting text ads)</label>
+            <label class="check-item"><input type="checkbox" name="gads_call"> Call-only ads (tap to call, no website needed)</label>
+            <label class="check-item"><input type="checkbox" name="gads_retarget"> Remarketing (ads to people who already visited your site)</label>
+            <label class="check-item"><input type="checkbox" name="gads_youtube"> YouTube / video ads</label>
           </div>
-          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>Past ad experience & notes</label><textarea name="gads_notes" placeholder="What worked, what didn't, previous agencies, account issues…"></textarea></div></div>
+          <div class="field-grid one" style="margin-top:12px"><div class="field-group"><label>If you're currently running ads, what landing pages are you using?</label><textarea name="gads_notes" placeholder="What worked, what didn't, previous agencies, account issues…"></textarea></div></div>
+          <div style="background:#e0f3e3;border:1px solid #8fcf9a;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#1f3d24;margin-top:.75rem;display:flex;gap:9px;align-items:flex-start">
+            <i class="ti ti-info-circle" style="flex-shrink:0;margin-top:1px"></i>
+            <div>Please grant <strong>ppc@msp-camp.com</strong> admin access to: Google Ads, Google Tag Manager, Google Search Console, Google Analytics, and Google Business Profile.</div>
+          </div>
+          <label class="check-item" style="margin-top:.5rem"><input type="checkbox" name="gads_access_granted"> Done — I've granted ppc@msp-camp.com admin access</label>
         </div>
 
         <!-- ══ SOCIAL MEDIA ══ -->
         <div class="service-panel" id="panel-social">
-          <div class="panel-intro"><i class="ti ti-info-circle"></i>Organic content to paid social — tell us your platforms and goals.</div>
+          <div class="panel-intro"><i class="ti ti-info-circle"></i>From free everyday posts to paid social ads — tell us your platforms and goals.</div>
           <div class="field-grid">
-            <div class="field-group"><label>Primary goal</label><select name="social_goal"><option value="">Select…</option><option>Brand awareness</option><option>Lead generation</option><option>Community engagement</option><option>Website traffic</option><option>Paid ads only</option><option>All of the above</option></select></div>
-            <div class="field-group"><label>Monthly paid social budget</label><select name="social_budget"><option value="">Organic only</option><option>$250–$750</option><option>$750–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500+</option></select></div>
+            <div class="field-group"><label>What's the main goal of your social media presence?</label><select name="social_goal"><option value="">Select…</option><option>Brand awareness</option><option>Lead generation</option><option>Community engagement</option><option>Website traffic</option><option>Paid ads only</option><option>All of the above</option></select></div>
+            <div class="field-group"><label>What's your monthly budget for paid social ads?</label><select name="social_budget"><option value="">Organic only</option><option>$250–$750</option><option>$750–$1,500</option><option>$1,500–$3,000</option><option>$3,000–$7,500</option><option>$7,500+</option></select></div>
           </div>
+          <p class="helper" style="margin-bottom:9px">Which platforms are you currently active on, or want to focus on?</p>
           <div class="check-grid">
             <label class="check-item"><input type="checkbox" name="social_fb"> Facebook</label>
             <label class="check-item"><input type="checkbox" name="social_ig"> Instagram</label>
@@ -657,16 +674,20 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <label class="check-item"><input type="checkbox" name="social_pin"> Pinterest</label>
           </div>
           <div class="field-grid" style="margin-top:12px">
+            <div class="field-group"><label>Do you have existing social accounts? Share the links</label><textarea name="social_existing_links" placeholder="Paste links to any accounts you already have (Facebook, Instagram, LinkedIn, TikTok, etc.)"></textarea></div>
             <div class="field-group"><label>Facebook page URL</label><input type="url" name="social_fb_url" placeholder="https://facebook.com/…"></div>
             <div class="field-group"><label>Instagram handle</label><input type="text" name="social_ig_handle" placeholder="@handle"></div>
-            <div class="field-group"><label>Posting frequency</label><select name="social_freq"><option value="">Select…</option><option>Daily</option><option>3–5x/week</option><option>1–2x/week</option><option>A few times/month</option></select></div>
-            <div class="field-group"><label>Content you can provide</label><select name="social_content"><option value="">Select…</option><option>Photos & videos</option><option>Finished job photos only</option><option>Nothing — fully managed</option><option>Mix of both</option></select></div>
-            <div class="field-group"><label>Target age range</label><select name="social_age"><option value="">All ages</option><option>18–34</option><option>25–44</option><option>35–55</option><option>45–65</option><option>55+</option></select></div>
-            <div class="field-group"><label>Target customer type</label><select name="social_customer"><option value="">Select…</option><option>Homeowners (residential)</option><option>Business owners (commercial)</option><option>Both</option></select></div>
+            <div class="field-group"><label>How often would you like us to post?</label><select name="social_freq"><option value="">Select…</option><option>Daily</option><option>3–5x/week</option><option>1–2x/week</option><option>A few times/month</option></select></div>
+            <div class="field-group"><label>What content can you provide us?</label><select name="social_content"><option value="">Select…</option><option>Photos & videos</option><option>Finished job photos only</option><option>Nothing — fully managed</option><option>Mix of both</option></select></div>
+            <div class="field-group"><label>Do you have existing photos, videos, or graphics we can use?</label><textarea name="social_existing_assets" placeholder="Anything already on hand you'd like us to repurpose for posts"></textarea></div>
+            <div class="field-group"><label>What age range are you trying to reach?</label><select name="social_age"><option value="">All ages</option><option>18–34</option><option>25–44</option><option>35–55</option><option>45–65</option><option>55+</option></select></div>
+            <div class="field-group"><label>Who's your typical customer?</label><select name="social_customer"><option value="">Select…</option><option>Homeowners (residential)</option><option>Business owners (commercial)</option><option>Both</option></select></div>
           </div>
           <div class="field-grid one">
-            <div class="field-group"><label>Brand voice</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="social_voice" value="Professional"> Professional & trustworthy</label><label class="radio-pill"><input type="radio" name="social_voice" value="Friendly"> Friendly & casual</label><label class="radio-pill"><input type="radio" name="social_voice" value="Bold"> Bold & authoritative</label><label class="radio-pill"><input type="radio" name="social_voice" value="Educational"> Educational</label></div></div>
-            <div class="field-group" style="margin-top:12px"><label>Social media notes</label><textarea name="social_notes" placeholder="Competitors, past campaigns, content ideas…"></textarea></div>
+            <div class="field-group"><label>What style of content do you prefer?</label><div class="radio-group" style="margin-top:6px"><label class="radio-pill"><input type="radio" name="social_content_style" value="Live action / professional"> Live action / professional</label><label class="radio-pill"><input type="radio" name="social_content_style" value="Humor / casual"> Humor / casual</label><label class="radio-pill"><input type="radio" name="social_content_style" value="Cartoon / illustrated"> Cartoon / illustrated</label><label class="radio-pill"><input type="radio" name="social_content_style" value="Educational"> Educational</label><label class="radio-pill"><input type="radio" name="social_content_style" value="Behind-the-scenes"> Behind-the-scenes</label></div></div>
+            <div class="field-group" style="margin-top:12px"><label>What tone of voice fits your brand?</label><div class="radio-group"><label class="radio-pill"><input type="radio" name="social_voice" value="Professional"> Professional & trustworthy</label><label class="radio-pill"><input type="radio" name="social_voice" value="Friendly"> Friendly & casual</label><label class="radio-pill"><input type="radio" name="social_voice" value="Bold"> Bold & authoritative</label><label class="radio-pill"><input type="radio" name="social_voice" value="Educational"> Educational</label></div></div>
+            <div class="field-group" style="margin-top:12px"><label>Any topics, themes, or content types to avoid?</label><textarea name="social_avoid" placeholder="Anything you don't want us posting about"></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>Anything else — competitors, past campaigns, content ideas?</label><textarea name="social_notes" placeholder="Competitors, past campaigns, content ideas…"></textarea></div>
           </div>
         </div>
       </div>
@@ -1125,15 +1146,15 @@ function buildDetailHTML(c){
   /* ── GOOGLE ADS ── */
   if(hasService('gads')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-ad"></i>Google Ads</h4>
-    <table class="kv-table">${row('Monthly budget',c.gads_budget)}${row('Campaign goal',c.gads_goal)}${row('Existing account',c.gads_existing)}${row('Account ID',c.gads_id)}${row('Geographic target',c.gads_geo)}${row('Landing page',c.gads_landing)}${row('Revenue per customer',c.gads_revenue)}${row('Keywords',c.gads_keywords)}${row('Notes',c.gads_notes)}</table>
-    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['gads_search','Search ads'],['gads_display','Display'],['gads_rsa','RSA'],['gads_call','Call-only'],['gads_retarget','Remarketing'],['gads_youtube','YouTube']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+    <table class="kv-table">${row('Monthly budget',c.gads_budget)}${row('Campaign goal',c.gads_goal)}${row('Existing account',c.gads_existing)}${row('Results so far',c.gads_results)}${row('Account ID',c.gads_id)}${row('Geographic target',c.gads_geo)}${row('Landing page',c.gads_landing)}${row('Revenue per customer',c.gads_revenue)}${row('Keywords',c.gads_keywords)}${row('Featured services',c.gads_featured_services)}${row('Hours of operation',c.gads_hours)}${row('Alt. phone/email for ads',c.gads_alt_contact)}${row('Notes',c.gads_notes)}</table>
+    <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['gads_search','Search ads'],['gads_display','Display'],['gads_rsa','RSA'],['gads_call','Call-only'],['gads_retarget','Remarketing'],['gads_youtube','YouTube'],['gads_access_granted','ppc@ access granted']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
     </div></div>`;
   }
 
   /* ── SOCIAL ── */
   if(hasService('social')){
     html+=`<div class="info-grid"><div class="info-card full"><h4><i class="ti ti-brand-instagram"></i>Social media</h4>
-    <table class="kv-table">${row('Primary goal',c.social_goal)}${row('Paid budget',c.social_budget)}${row('Facebook URL',c.social_fb_url)}${row('Instagram handle',c.social_ig_handle)}${row('Posting frequency',c.social_freq)}${row('Content provided',c.social_content)}${row('Target age',c.social_age)}${row('Customer type',c.social_customer)}${row('Brand voice',c.social_voice)}${row('Notes',c.social_notes)}</table>
+    <table class="kv-table">${row('Primary goal',c.social_goal)}${row('Paid budget',c.social_budget)}${row('Existing accounts',c.social_existing_links)}${row('Facebook URL',c.social_fb_url)}${row('Instagram handle',c.social_ig_handle)}${row('Posting frequency',c.social_freq)}${row('Content provided',c.social_content)}${row('Existing content assets',c.social_existing_assets)}${row('Target age',c.social_age)}${row('Customer type',c.social_customer)}${row('Content style',c.social_content_style)}${row('Brand voice',c.social_voice)}${row('Topics to avoid',c.social_avoid)}${row('Notes',c.social_notes)}</table>
     <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['social_fb','Facebook'],['social_ig','Instagram'],['social_tiktok','TikTok'],['social_li','LinkedIn'],['social_yt','YouTube'],['social_x','X/Twitter'],['social_nd','Nextdoor'],['social_pin','Pinterest']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
     </div></div>`;
   }
