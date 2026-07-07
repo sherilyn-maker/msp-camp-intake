@@ -330,7 +330,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
       <div class="form-step active" id="step-0">
         <p class="section-title"><i class="ti ti-user"></i>Client information</p>
         <div class="field-grid">
-          <div class="field-group"><label>Business name <span class="req">*</span></label><input type="text" name="business_name" id="f_business_name" placeholder="e.g. Acme Plumbing LLC" required></div>
+          <div class="field-group"><label>Business name <span class="req">*</span></label><input type="text" name="business_name" id="f_business_name" placeholder="e.g. Acme Windows & Doors" required></div>
           <div class="field-group"><label>Primary contact <span class="req">*</span></label><input type="text" name="contact_name" id="f_contact_name" placeholder="Full name" required></div>
           <div class="field-group"><label>Email address <span class="req">*</span></label><input type="email" name="client_email" id="f_client_email" placeholder="name@business.com" required></div>
           <div class="field-group"><label>Phone number <span class="req">*</span></label><input type="tel" name="phone" id="f_phone" placeholder="(###) ###-####" required></div>
@@ -378,8 +378,8 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="field-grid">
             <div class="field-group"><label>What's the main city or area you want to be found in? <span class="req">*</span></label><input type="text" name="seo_city" placeholder="e.g. Tampa, FL"></div>
             <div class="field-group"><label>Any other cities or areas to target?</label><input type="text" name="seo_other_cities" placeholder="e.g. Sarasota, Bradenton…"></div>
-            <div class="field-group"><label>What services do you want to be found for?</label><input type="text" name="seo_keywords" placeholder="e.g. AC repair, drain cleaning…"></div>
-            <div class="field-group"><label>Any exact phrases people might search for?</label><input type="text" name="seo_target_phrases" placeholder="e.g. emergency AC repair Tampa, best plumber near me"></div>
+            <div class="field-group"><label>What services do you want to be found for?</label><input type="text" name="seo_keywords" placeholder="e.g. window replacement, door installation, IT support"></div>
+            <div class="field-group"><label>Any exact phrases people might search for?</label><input type="text" name="seo_target_phrases" placeholder="e.g. window replacement Tampa, best IT support company near me"></div>
             <div class="field-group"><label>Who are your top competitors?</label><input type="text" name="seo_competitors" placeholder="Competitor names or websites"></div>
             <div class="field-group"><label>About how many visitors does your website get per month?</label>
               <select name="seo_traffic"><option value="">Unknown</option><option>0–100</option><option>100–500</option><option>500–2,000</option><option>2,000–10,000</option><option>10,000+</option></select>
@@ -392,7 +392,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="field-grid one">
             <div class="field-group"><label>Have you tried any search-ranking strategies in the past?</label><textarea name="seo_past_attempts" placeholder="What did you try, when, and how did it go? Include any agencies you worked with."></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Do you want to show up in AI answers?</label>
-              <p class="helper" style="margin-top:-2px">Like when someone asks ChatGPT or Google AI "who's the best plumber near me"</p>
+              <p class="helper" style="margin-top:-2px">Like when someone asks ChatGPT or Google AI "who's the best IT support company near me"</p>
               <div class="radio-group">
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Yes — appear in AI answers"> Yes — appear in AI answers (ChatGPT, Perplexity, Google AI)</label>
                 <label class="radio-pill"><input type="radio" name="seo_geo" value="Not a priority"> Not a priority</label>
@@ -470,13 +470,13 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           </div>
           <div class="field-grid">
             <div class="field-group"><label>What's your niche, if any? Main things you want to be known for?</label><textarea name="seo_niche" placeholder="If you had to pick just a few things to be known for, what would they be?"></textarea></div>
-            <div class="field-group"><label>What are ALL the services or products you offer (including anything you resell)?</label><textarea name="seo_services_detail" placeholder="List and briefly describe every service you offer — include brands, equipment, specializations, or resold/white-labeled products (e.g. Lennox HVAC systems, Trenchless sewer repair)."></textarea></div>
+            <div class="field-group"><label>What are ALL the services or products you offer (including anything you resell)?</label><textarea name="seo_services_detail" placeholder="List and briefly describe every service you offer — include brands, equipment, specializations, or resold/white-labeled products (e.g. Andersen windows, Pella doors, managed IT services)."></textarea></div>
             <div class="field-group"><label>What's the history of your company?</label><textarea name="seo_history" placeholder="What led to the company being founded? Include milestones, challenges overcome, and any fun stories — be as detailed as possible."></textarea></div>
             <div class="field-group"><label>What's your mission statement and core values?</label><textarea name="seo_mission_values" placeholder="What drives the business day-to-day, and what values guide how you operate?"></textarea></div>
-            <div class="field-group"><label>What makes you different from competitors?</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. 24/7 emergency service, licensed & insured, same-day guarantee, family-owned 20+ years, financing available)"></textarea></div>
+            <div class="field-group"><label>What makes you different from competitors?</label><textarea name="seo_usp" placeholder="Why should customers choose you over competitors? (e.g. lifetime warranty, licensed & insured, free consultations, 24/7 IT support, financing available)"></textarea></div>
             <div class="field-group"><label>Who is your target market?</label><textarea name="seo_target_customer" placeholder="Tell us about your ideal customer — demographics, age range, interests, what they love about you, and how they typically find you."></textarea></div>
             <div class="field-group"><label>What areas or cities do you serve?</label><textarea name="seo_service_area_detail" placeholder="List all cities, counties, or ZIP codes you serve. Note if some areas are primary vs secondary markets."></textarea></div>
-            <div class="field-group"><label>Any licenses, certifications, or awards?</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Angi, manufacturer certifications, industry awards, etc."></textarea></div>
+            <div class="field-group"><label>Any licenses, certifications, or awards?</label><textarea name="seo_credentials" placeholder="State licenses, certifications, BBB rating, Google rating, manufacturer/vendor certifications, industry awards, etc."></textarea></div>
             <div class="field-group"><label>Any impressive numbers you'd like to showcase?</label><textarea name="seo_stats" placeholder="e.g. years in business, # of clients served, retention rate, customer satisfaction score, jobs completed"></textarea></div>
             <div class="field-group"><label>What questions do customers ask you most often?</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become helpful FAQ content on your site."></textarea></div>
           </div>
@@ -501,7 +501,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Content planning</p>
           <div class="field-grid one">
             <div class="field-group"><label>Do you have existing photos, videos, or write-ups we can reuse?</label><textarea name="seo_existing_content" placeholder="Do you have existing blog posts, videos, brochures, before/after photos, case studies, or testimonials we can repurpose?"></textarea></div>
-            <div class="field-group" style="margin-top:12px"><label>What pages or posts would you like us to create?</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for AC repair, HVAC installation, etc."></textarea></div>
+            <div class="field-group" style="margin-top:12px"><label>What pages or posts would you like us to create?</label><textarea name="seo_content_goals" placeholder="e.g. 5 city landing pages (Tampa, Sarasota, Bradenton…), 1 blog post/month, service pages for window replacement, door installation, IT support, etc."></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Who should review and approve content before it goes live?</label><textarea name="seo_approval_process" placeholder="Who reviews and approves content before it's published? How should we send drafts?"></textarea></div>
             <div class="field-group" style="margin-top:12px"><label>Anything else about your search rankings or content?</label><textarea name="seo_notes" placeholder="Past SEO work, penalties, technical issues, content calendar, anything else…"></textarea></div>
           </div>
@@ -582,7 +582,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>Exact business name as it appears on Google</label><input type="text" name="gbp_name" placeholder="As it appears on Google"></div>
             <div class="field-group"><label>Business phone number</label><input type="tel" name="gbp_phone" placeholder="(###) ###-####"></div>
             <div class="field-group"><label>Do you already have a Google Business Profile?</label><select name="gbp_status"><option value="">Select…</option><option>Verified & active</option><option>Claimed, not verified</option><option>Not claimed</option><option>Suspended</option><option>Don't have one</option></select></div>
-            <div class="field-group"><label>What category is your business listed under?</label><input type="text" name="gbp_category" placeholder="e.g. Plumber, HVAC Contractor…"></div>
+            <div class="field-group"><label>What category is your business listed under?</label><input type="text" name="gbp_category" placeholder="e.g. Window Installation Service, IT Support Company…"></div>
             <div class="field-group"><label>What areas or ZIP codes do you serve?</label><input type="text" name="gbp_area" placeholder="Cities or radius"></div>
             <div class="field-group"><label>About how many reviews do you have?</label><select name="gbp_reviews"><option value="">Not sure</option><option>0</option><option>1–10</option><option>11–50</option><option>51–100</option><option>100+</option></select></div>
             <div class="field-group"><label>What's your average star rating?</label><select name="gbp_rating"><option value="">Don't know</option><option>5.0</option><option>4.5–4.9</option><option>4.0–4.4</option><option>3.5–3.9</option><option>Under 3.5</option></select></div>
@@ -604,7 +604,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
           <div class="panel-intro"><i class="ti ti-info-circle"></i>Local Service Ads (LSA) put you at the very top of Google, above regular ads, with a "Google Guaranteed" badge — and you only pay when someone contacts you. We handle the setup and verification.</div>
           <div class="field-grid">
             <div class="field-group"><label>Legal business name</label><input type="text" name="lsa_legal" placeholder="As registered with state"></div>
-            <div class="field-group"><label>What category of business are you?</label><select name="lsa_category"><option value="">Select…</option><option>Plumbing</option><option>HVAC</option><option>Electrical</option><option>Roofing</option><option>Landscaping</option><option>Locksmith</option><option>Pest control</option><option>Cleaning</option><option>General contractor</option><option>Other</option></select></div>
+            <div class="field-group"><label>What category of business are you?</label><select name="lsa_category"><option value="">Select…</option><option>Window installation / replacement</option><option>Door installation / replacement</option><option>General contractor</option><option>Other</option></select></div>
             <div class="field-group"><label>What ZIP codes or cities should we target?</label><input type="text" name="lsa_zips" placeholder="ZIP codes or cities"></div>
             <div class="field-group"><label>How much do you want to spend per month?</label><select name="lsa_budget"><option value="">Select…</option><option>$500–$1,000</option><option>$1,000–$2,500</option><option>$2,500–$5,000</option><option>$5,000–$10,000</option><option>$10,000+</option></select></div>
             <div class="field-group"><label>License number</label><input type="text" name="lsa_license" placeholder="State contractor license #"></div>
@@ -633,7 +633,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>What areas do you want your ads to target?</label><input type="text" name="gads_geo" placeholder="City, state, radius, ZIP codes"></div>
             <div class="field-group"><label>Where should ad clicks land?</label><select name="gads_landing"><option value="">Select…</option><option>Existing site page</option><option>Need new landing page</option><option>Multiple pages</option></select></div>
             <div class="field-group"><label>About how much revenue does a new customer bring you?</label><select name="gads_revenue"><option value="">Prefer not to say</option><option>Under $200</option><option>$200–$500</option><option>$500–$1,500</option><option>$1,500–$5,000</option><option>$5,000+</option></select></div>
-            <div class="field-group"><label>Any specific keywords you'd like us to include?</label><input type="text" name="gads_keywords" placeholder="e.g. emergency plumber, AC replacement…"></div>
+            <div class="field-group"><label>Any specific keywords you'd like us to include?</label><input type="text" name="gads_keywords" placeholder="e.g. window replacement, door installation, managed IT services…"></div>
             <div class="field-group"><label>Which services should we feature in the ads?</label><input type="text" name="gads_featured_services" placeholder="Which services should get top billing in ad copy?"></div>
             <div class="field-group"><label>What are your hours of operation?</label><input type="text" name="gads_hours" placeholder="Include time zone, e.g. Mon-Fri 8am-6pm EST"></div>
             <div class="field-group"><label>Want a different phone number or email just for these ads?</label><input type="text" name="gads_alt_contact" placeholder="Leave blank to use what's on your site"></div>
