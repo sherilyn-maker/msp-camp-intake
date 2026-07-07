@@ -224,7 +224,7 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
     </div>
   </div>
   <div class="topbar-right">
-    <button class="btn btn-outline-white btn-sm" onclick="window.open(location.pathname+'?public=1','_blank')"><i class="ti ti-world"></i> Shared dashboard</button>
+    <button class="btn btn-outline-white btn-sm" id="btn-shared-dashboard" onclick="window.open(location.pathname+'?public=1','_blank')"><i class="ti ti-world"></i> Shared dashboard</button>
     <button class="btn btn-outline-white btn-sm" onclick="showView('dashboard')" id="btn-dash" style="display:none"><i class="ti ti-layout-dashboard"></i> Dashboard</button>
     <button class="btn btn-white btn-sm" onclick="resetForm()"><i class="ti ti-plus"></i> New intake</button>
   </div>
@@ -251,6 +251,18 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
 </div>
 
 <!-- PUBLIC DASHBOARD — shared, read-only, viewable by anyone with the link -->
+<!-- PASSCODE GATE — shown before the shared dashboard until unlocked -->
+<div id="view-public-gate" style="display:none;min-height:calc(100vh - 57px);align-items:center;justify-content:center;padding:2rem">
+  <div style="max-width:360px;width:100%;text-align:center;background:#fff;border-radius:12px;padding:2.5rem 2rem;box-shadow:0 1px 3px rgba(0,0,0,.08)">
+    <i class="ti ti-lock" style="font-size:32px;color:#339440"></i>
+    <h2 style="font-size:18px;font-weight:700;margin:.75rem 0 .375rem">Team access only</h2>
+    <p style="font-size:13px;color:#666;margin-bottom:1.25rem">Enter the team passcode to view the shared client dashboard.</p>
+    <input type="password" id="public-gate-input" placeholder="Passcode" style="width:100%;padding:10px 12px;border:1px solid #d4d4d8;border-radius:8px;font-size:14px;margin-bottom:.75rem" onkeydown="if(event.key==='Enter')checkPublicGate()">
+    <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="checkPublicGate()">Unlock</button>
+    <p id="public-gate-error" style="display:none;color:#dc2626;font-size:12.5px;margin-top:.625rem">Incorrect passcode — try again.</p>
+  </div>
+</div>
+
 <div class="dashboard" id="view-public" style="display:none">
   <div class="sidebar">
     <div class="sidebar-head">
@@ -886,13 +898,31 @@ function scheduleAutoSave(){
 }
 
 /* ── VIEWS ── */
+const PUBLIC_PASSCODE = 'MSP2026';
+const PUBLIC_UNLOCK_KEY = 'mspcamp_dashboard_unlocked';
+
 function showView(v){
-  document.getElementById('view-dashboard').style.display = v==='dashboard'?'flex':'none';
-  document.getElementById('view-public').style.display    = v==='public'?'flex':'none';
-  document.getElementById('view-form').style.display      = v==='form'?'block':'none';
-  document.getElementById('btn-dash').style.display       = v==='form'?'flex':'none';
+  const publicUnlocked = localStorage.getItem(PUBLIC_UNLOCK_KEY)==='true';
+  document.getElementById('view-dashboard').style.display   = v==='dashboard'?'flex':'none';
+  document.getElementById('view-public-gate').style.display = (v==='public' && !publicUnlocked)?'flex':'none';
+  document.getElementById('view-public').style.display      = (v==='public' && publicUnlocked)?'flex':'none';
+  document.getElementById('view-form').style.display        = v==='form'?'block':'none';
+  document.getElementById('btn-dash').style.display         = (v==='form' && fillMode!=='client')?'flex':'none';
   if(v==='dashboard') renderSidebar(getIntakes());
-  if(v==='public') loadPublicDashboard();
+  if(v==='public' && publicUnlocked) loadPublicDashboard();
+  if(v==='public' && !publicUnlocked) setTimeout(()=>document.getElementById('public-gate-input')?.focus(),50);
+}
+
+function checkPublicGate(){
+  const input = document.getElementById('public-gate-input');
+  if(input.value===PUBLIC_PASSCODE){
+    localStorage.setItem(PUBLIC_UNLOCK_KEY,'true');
+    document.getElementById('public-gate-error').style.display='none';
+    input.value='';
+    showView('public');
+  } else {
+    document.getElementById('public-gate-error').style.display='block';
+  }
 }
 
 /* ── SIDEBAR ── */
@@ -1445,6 +1475,8 @@ function enterClientMode(){
   document.getElementById('am-banner-desc').textContent = 'Your account manager has already filled in what they know. Review the highlighted fields, complete anything that\'s missing, and submit when ready. You can edit any pre-filled value.';
   document.getElementById('am-banner-actions').innerHTML = '';
   document.getElementById('prefill-link-box').style.display = 'none';
+  document.getElementById('btn-shared-dashboard').style.display = 'none';
+  document.getElementById('btn-dash').style.display = 'none';
 }
 
 function markAMFilled(el){
