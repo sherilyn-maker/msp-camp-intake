@@ -480,6 +480,23 @@ input.am-filled:focus,select.am-filled:focus,textarea.am-filled:focus{box-shadow
             <div class="field-group"><label>What questions do customers ask you most often?</label><textarea name="seo_faqs" placeholder="List questions your customers ask most often — these become helpful FAQ content on your site."></textarea></div>
           </div>
 
+          <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">IT services (if applicable)</p>
+          <p class="helper" style="margin-top:-6px">Skip this if IT isn't part of what you offer.</p>
+          <div class="check-grid">
+            <label class="check-item"><input type="checkbox" name="it_managed"> Managed IT / help desk support</label>
+            <label class="check-item"><input type="checkbox" name="it_security"> Cybersecurity</label>
+            <label class="check-item"><input type="checkbox" name="it_cloud"> Cloud services</label>
+            <label class="check-item"><input type="checkbox" name="it_network"> Network administration</label>
+            <label class="check-item"><input type="checkbox" name="it_voip"> VoIP / phone systems</label>
+            <label class="check-item"><input type="checkbox" name="it_backup"> Data backup & disaster recovery</label>
+            <label class="check-item"><input type="checkbox" name="it_comanaged"> Co-managed IT</label>
+            <label class="check-item"><input type="checkbox" name="it_consulting"> IT consulting / projects</label>
+          </div>
+          <div class="field-grid" style="margin-top:12px">
+            <div class="field-group"><label>Any compliance standards you help clients meet (or hold yourself)?</label><textarea name="it_compliance" placeholder="e.g. HIPAA, SOC 2, PCI-DSS, GDPR, CMMC"></textarea></div>
+            <div class="field-group"><label>Any vendor or technical certifications?</label><textarea name="it_certifications" placeholder="e.g. Microsoft Partner, Cisco Certified, CompTIA, AWS, Dell, Fortinet"></textarea></div>
+          </div>
+
           <p style="font-size:11.5px;font-weight:700;color:#555;text-transform:uppercase;letter-spacing:.4px;margin:1.125rem 0 9px">Brand personality</p>
           <div class="field-grid">
             <div class="field-group"><label>In three words, how would you describe your brand's personality?</label><input type="text" name="seo_brand_personality" placeholder="e.g. bold, friendly, dependable"></div>
@@ -1094,6 +1111,11 @@ function buildDetailHTML(c){
         ${row('Credentials / licenses',c.seo_credentials)}
         ${row('Impressive stats',c.seo_stats)}
         ${row('Customer FAQs',c.seo_faqs)}
+      </table>
+      <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px">${[['it_managed','Managed IT / help desk'],['it_security','Cybersecurity'],['it_cloud','Cloud services'],['it_network','Network admin'],['it_voip','VoIP / phone'],['it_backup','Backup & DR'],['it_comanaged','Co-managed IT'],['it_consulting','IT consulting/projects']].map(([k,l])=>c[k]?`<span class="check-badge"><i class="ti ti-check"></i>${l}</span>`:'').join('')}</div>
+      <table class="kv-table" style="margin-top:8px">
+        ${row('Compliance standards',c.it_compliance)}
+        ${row('Vendor / technical certifications',c.it_certifications)}
         ${row('Brand personality',c.seo_brand_personality)}
         ${row('Brand voice',c.seo_voice)}
         ${row('Core taglines / messaging',c.seo_taglines)}
